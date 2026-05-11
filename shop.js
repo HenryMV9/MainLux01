@@ -1,3 +1,5 @@
+// FILTERS
+
 const sizeFilter = document.getElementById("sizeFilter");
 const priceFilter = document.getElementById("priceFilter");
 
@@ -15,19 +17,21 @@ function filterProducts(){
 
         let showProduct = true;
 
-        // SIZE FILTER
+        if(selectedSize !== "all" &&
+        productSize !== selectedSize){
 
-        if(selectedSize !== "all" && productSize !== selectedSize){
             showProduct = false;
         }
 
-        // PRICE FILTER
+        if(selectedPrice !== "all" &&
+        productPrice > parseInt(selectedPrice)){
 
-        if(selectedPrice !== "all" && productPrice > parseInt(selectedPrice)){
             showProduct = false;
         }
 
-        product.style.display = showProduct ? "block" : "none";
+        product.style.display = showProduct
+        ? "block"
+        : "none";
 
     });
 
@@ -43,4 +47,54 @@ const mobileMenu = document.getElementById("mobileMenu");
 
 menuToggle.addEventListener("click", () => {
     mobileMenu.classList.toggle("active");
+});
+
+// ADD TO CART
+
+const cartButtons = document.querySelectorAll(".cart-btn");
+
+cartButtons.forEach(button => {
+
+    button.addEventListener("click", (e) => {
+
+        e.preventDefault();
+
+        const productCard =
+        button.closest(".product-card");
+
+        const product = {
+
+            name:
+            productCard.querySelector("h3").innerText,
+
+            price:
+            parseInt(
+                productCard.dataset.price
+            ),
+
+            image:
+            productCard.querySelector("img").src,
+
+            size:
+            productCard.dataset.size,
+
+            quantity:1
+
+        };
+
+        let cart =
+        JSON.parse(localStorage.getItem("mainluxCart"))
+        || [];
+
+        cart.push(product);
+
+        localStorage.setItem(
+            "mainluxCart",
+            JSON.stringify(cart)
+        );
+
+        window.location.href = "/cart.html";
+
+    });
+
 });

@@ -25,3 +25,11 @@ app.get("/male.html", (req, res) => {
 app.get("/female.html", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "female.html"));
 });
+
+app.get("/male-product.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "male-product.html"));
+});
+
+app.get("/female-product.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "female-product.html"));
+});

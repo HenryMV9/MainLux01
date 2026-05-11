@@ -374,3 +374,10 @@ body{
     }
 
 }
+
+/* PRODUCT LINK FIX */
+
+.product-link{
+    text-decoration:none;
+    color:inherit;
+}
