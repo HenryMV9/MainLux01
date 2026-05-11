@@ -8,11 +8,11 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Remix Icons -->
-<link
-href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-rel="stylesheet"
-/>
+        <!-- Remix Icons -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
 
 
     <!-- CSS -->
@@ -27,17 +27,16 @@ rel="stylesheet"
         </div>
 
         <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">Male</a>
-            <a href="#">Female</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="/views/index.html">Home</a>
+            <a href="/views/male.html">Male</a>
+            <a href="/views/female.html">Female</a>
+            <a href="/views/about.html">About</a>
+            <a href="/views/contact.html">Contact</a>
         </nav>
 
-        <div class="nav-icons">
-            <span>🛒</span>
-        </div>
+    <div class="nav-icons">
+        <i class="ri-shopping-bag-3-line"></i>
+    </div>
 
         <div class="menu-toggle" id="menuToggle">
             ☰
@@ -46,12 +45,11 @@ rel="stylesheet"
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#">Home</a>
-        <a href="#">Shop</a>
-        <a href="#">Male</a>
-        <a href="#">Female</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="/views/index.html">Home</a>
+        <a href="/views/male.html">Male</a>
+        <a href="/views/female.html">Female</a>
+        <a href="/views/about.html">About</a>
+        <a href="/views/contact.html">Contact</a>
     </div>
 
     <!-- HERO SECTION -->
@@ -65,8 +63,8 @@ rel="stylesheet"
                 <h1>Luxury Slides <br> Made In Nigeria</h1>
 
                 <div class="hero-buttons">
-                    <a href="#" class="btn gold-btn">Shop Now</a>
-                    <a href="#" class="btn outline-btn">View Collection</a>
+                    <a href="/views/male.html" class="btn gold-btn">Shop Now</a>
+                    <a href="/views/female.html" class="btn outline-btn">View Collection</a>
                 </div>
             </div>
         </div>
@@ -176,7 +174,7 @@ rel="stylesheet"
             <h2>Male Collection</h2>
             <span>Luxury slides engineered for comfort and presence.</span>
 
-            <a href="#" class="btn gold-btn">Shop Men</a>
+            <a href="/views/male.html" class="btn gold-btn">Shop Men</a>
         </div>
     </section>
 
@@ -191,7 +189,7 @@ rel="stylesheet"
             <h2>Female Collection</h2>
             <span>Elegant premium footwear for effortless luxury.</span>
 
-            <a href="#" class="btn gold-btn">Shop Women</a>
+            <a href="/views/female.html" class="btn gold-btn">Shop Women</a>
         </div>
     </section>
 
@@ -271,17 +269,84 @@ rel="stylesheet"
         </a>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <h2>MAINLUX</h2>
-        <p>Designed For Everyday Luxury. Made In Nigeria.</p>
-    </footer>
+<!-- FOOTER -->
 
+<footer class="footer">
+
+    <div class="footer-grid">
+
+        <!-- BRAND -->
+
+        <div class="footer-column">
+
+            <h2>MAINLUX</h2>
+
+            <p>
+                Designed For Everyday Luxury.
+                Made In Nigeria.
+            </p>
+
+        </div>
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+            <h3>Quick Links</h3>
+
+            <a href="/">Home</a>
+            <a href="/male.html">Male Collection</a>
+            <a href="/female.html">Female Collection</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+
+        </div>
+
+        <!-- LOCATION -->
+
+        <div class="footer-column">
+
+            <h3>Location</h3>
+
+            <p>Lagos, Nigeria</p>
+
+            <p>Luxury Footwear Brand</p>
+
+            <p>WhatsApp: 08101181400</p>
+
+        </div>
+
+        <!-- SOCIALS -->
+
+        <div class="footer-column">
+
+            <h3>Follow Us</h3>
+
+            <div class="social-icons">
+
+                <a href="#">
+                    <i class="ri-instagram-line"></i>
+                </a>
+
+                <a href="#">
+                    <i class="ri-tiktok-line"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 MAINLUX. All Rights Reserved.
+    </div>
+
+</footer>
     <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/2348101181400" class="floating-whatsapp" target="_blank">
-        💬
-    </a>
-
+  <a href="https://wa.me/2348101181400" class="floating-whatsapp" target="_blank">
+    <i class="ri-whatsapp-line"></i>
+</a>
     <script src="/js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAINLUX Female Collection</title>
+
+    <!-- Remix Icons -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/shop.css">
+</head>
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        MAINLUX
+    </div>
+
+    <nav class="nav-links">
+        <a href="/views/index.html">Home</a>
+        <a href="/views/male.html">Male</a>
+        <a href="/views/female.html">Female</a>
+        <a href="/views/about.html">About</a>
+        <a href="/views/contact.html">Contact</a>
+        <a href="/views/cart.html">Cart</a>
+    </nav>
+
+ 
+    <div class="nav-icons">
+        <i class="ri-shopping-bag-3-line"></i>
+    </div>
+
+    <div class="menu-toggle" id="menuToggle">
+        <i class="ri-menu-3-line"></i>
+    </div>
+    <!-- MOBILE MENU -->
+
+    <div class="mobile-menu" id="mobileMenu">
+
+        <a href="/views/index.html">Home</a>
+        <a href="/views/male.html">Male</a>
+        <a href="/views/female.html">Female</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+
+    </div>
+
+</header>
+
+<section class="shop-hero female-hero">
+    <div class="overlay"></div>
+
+    <div class="shop-hero-content">
+        <p>PREMIUM FEMALE COLLECTION</p>
+        <h1>Elegant Luxury For Women</h1>
+    </div>
+</section>
+
+<section class="filter-section">
+
+    <div class="filter-box">
+
+        <select id="sizeFilter">
+            <option value="all">Filter By Size</option>
+            <option value="37">37</option>
+            <option value="38">38</option>
+            <option value="39">39</option>
+            <option value="40">40</option>
+        </select>
+
+        <select id="priceFilter">
+            <option value="all">Filter By Price</option>
+            <option value="35000">Under ₦35,000</option>
+            <option value="45000">Under ₦45,000</option>
+            <option value="60000">Under ₦60,000</option>
+        </select>
+
+    </div>
+
+</section>
+
+<section class="products-section">
+
+    <div class="products-grid" id="productsGrid">
+
+        <div class="product-card" data-size="38" data-price="35000">
+
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1974&auto=format&fit=crop">
+            </div>
+
+            <div class="product-info">
+
+                <span class="stock in-stock">In Stock</span>
+
+                <h3>Soft Beige Luxe</h3>
+
+                <p class="price">₦35,000</p>
+
+                <div class="sizes">
+                    Sizes: 37, 38, 39
+                </div>
+
+                <button class="cart-btn">
+                    <i class="ri-shopping-bag-line"></i>
+                    Quick Add
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="product-card" data-size="39" data-price="45000">
+
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?q=80&w=1974&auto=format&fit=crop">
+            </div>
+
+            <div class="product-info">
+
+                <span class="stock low-stock">Low Stock</span>
+
+                <h3>Elegant Gold Slide</h3>
+
+                <p class="price">₦45,000</p>
+
+                <div class="sizes">
+                    Sizes: 38, 39, 40
+                </div>
+
+                <button class="cart-btn">
+                    <i class="ri-shopping-bag-line"></i>
+                    Quick Add
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="product-card" data-size="40" data-price="55000">
+
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1978&auto=format&fit=crop">
+            </div>
+
+            <div class="product-info">
+
+                <span class="stock in-stock">In Stock</span>
+
+                <h3>Mainlux Femme</h3>
+
+                <p class="price">₦55,000</p>
+
+                <div class="sizes">
+                    Sizes: 39, 40
+                </div>
+
+                <button class="cart-btn">
+                    <i class="ri-shopping-bag-line"></i>
+                    Quick Add
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-grid">
+
+        <div class="footer-column">
+
+            <h2>MAINLUX</h2>
+
+            <p>
+                Designed For Everyday Luxury.
+                Made In Nigeria.
+            </p>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Quick Links</h3>
+
+            <a href="/">Home</a>
+            <a href="/male.html">Male Collection</a>
+            <a href="/female.html">Female Collection</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Location</h3>
+
+            <p>Lagos, Nigeria</p>
+
+            <p>Luxury Footwear Brand</p>
+
+            <p>WhatsApp: 08101181400</p>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Follow Us</h3>
+
+            <div class="social-icons">
+
+                <a href="#">
+                    <i class="ri-instagram-line"></i>
+                </a>
+
+                <a href="#">
+                    <i class="ri-tiktok-line"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 MAINLUX. All Rights Reserved.
+    </div>
+
+</footer>
+
+
+<a href="https://wa.me/2348101181400" class="floating-whatsapp" target="_blank">
+    <i class="ri-whatsapp-line"></i>
+</a>
+
+<script src="/js/shop.js"></script>
+
+</body>
+</html>
