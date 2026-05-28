@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | MAINLUX Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="logo">MAINLUX</span>
+      <span class="admin-tag">Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-section-title">Overview</span>
+      <a href="./dashboard.html" class="sidebar-link active"><i class="ri-dashboard-line"></i> Dashboard</a>
+      <span class="nav-section-title">Catalogue</span>
+      <a href="./products.html" class="sidebar-link"><i class="ri-shirt-line"></i> Products</a>
+      <a href="./product-form.html" class="sidebar-link"><i class="ri-add-circle-line"></i> Add Product</a>
+      <span class="nav-section-title">Commerce</span>
+      <a href="./orders.html" class="sidebar-link"><i class="ri-shopping-bag-3-line"></i> Orders</a>
+      <span class="nav-section-title">Store</span>
+      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-line"></i> View Store</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="signout-btn" id="signOutBtn"><i class="ri-logout-box-line"></i> Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1>Dashboard</h1>
+      <div class="topbar-right">
+        <span id="adminEmail"></span>
+        <span class="admin-badge">Admin</span>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label"><i class="ri-shopping-bag-line"></i> Total Orders</div>
+          <div class="stat-value" id="statOrders">—</div>
+          <div class="stat-sub">All time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label"><i class="ri-time-line"></i> Pending Orders</div>
+          <div class="stat-value" id="statPending">—</div>
+          <div class="stat-sub">Awaiting processing</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label"><i class="ri-money-cny-circle-line"></i> Total Revenue</div>
+          <div class="stat-value" id="statRevenue">—</div>
+          <div class="stat-sub">NGN (excl. cancelled)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label"><i class="ri-shirt-line"></i> Products</div>
+          <div class="stat-value" id="statProducts">—</div>
+          <div class="stat-sub">Active in store</div>
+        </div>
+      </div>
+
+      <!-- LOW STOCK ALERT -->
+      <div class="table-wrap" id="lowStockWrap" style="display:none">
+        <div class="table-header">
+          <h2>Low Stock Alert</h2>
+          <a href="./products.html" class="btn btn-ghost btn-sm">Manage Stock</a>
+        </div>
+        <div style="padding:0 24px 20px">
+          <div class="low-stock-list" id="lowStockList"></div>
+        </div>
+      </div>
+
+      <!-- RECENT ORDERS -->
+      <div class="table-wrap">
+        <div class="table-header">
+          <h2>Recent Orders</h2>
+          <a href="./orders.html" class="btn btn-ghost btn-sm">View All</a>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="recentOrdersBody">
+              <tr><td colspan="6" style="text-align:center;padding:40px;color:#999">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./js/admin-auth.js"></script>
+<script>
+document.addEventListener('admin:ready', async () => {
+  const db = window.adminDb;
+
+  // Stats
+  const [ordersRes, productsRes] = await Promise.all([
+    db.from('orders').select('id, total_amount, status, created_at, customer_name, customer_phone', { count: 'exact' }).order('created_at', { ascending: false }).limit(10),
+    db.from('products').select('id, name, stock', { count: 'exact' }).eq('is_active', true)
+  ]);
+
+  const orders = ordersRes.data || [];
+  const products = productsRes.data || [];
+
+  document.getElementById('statOrders').textContent = ordersRes.count ?? orders.length;
+  document.getElementById('statProducts').textContent = productsRes.count ?? products.length;
+
+  const pending = orders.filter(o => o.status === 'pending').length;
+  document.getElementById('statPending').textContent = pending;
+
+  const revenue = orders.filter(o => o.status !== 'cancelled').reduce((s, o) => s + (o.total_amount || 0), 0);
+  document.getElementById('statRevenue').textContent = revenue ? `\u20a6${revenue.toLocaleString()}` : '\u20a60';
+
+  // Low stock
+  const lowStock = products.filter(p => p.stock <= 3);
+  if (lowStock.length) {
+    document.getElementById('lowStockWrap').style.display = 'block';
+    document.getElementById('lowStockList').innerHTML = lowStock.map(p => `
+      <div class="low-stock-item">
+        <span>${p.name}</span>
+        <span class="stock-num">${p.stock} left</span>
+      </div>`).join('');
+  }
+
+  // Recent orders table
+  const statusBadge = s => `<span class="badge badge-${s}">${s}</span>`;
+  const fmt = d => new Date(d).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' });
+
+  document.getElementById('recentOrdersBody').innerHTML = orders.length
+    ? orders.map(o => `
+        <tr>
+          <td><code style="font-size:0.72rem;color:#C9A35B">${o.id.slice(0,8)}...</code></td>
+          <td>${o.customer_name}</td>
+          <td>${o.customer_phone}</td>
+          <td style="font-weight:700">\u20a6${(o.total_amount||0).toLocaleString()}</td>
+          <td>${statusBadge(o.status)}</td>
+          <td style="color:#888;font-size:0.75rem">${fmt(o.created_at)}</td>
+        </tr>`).join('')
+    : '<tr><td colspan="6" style="text-align:center;padding:40px;color:#999">No orders yet</td></tr>';
+});
+</script>
+</body>
+</html>

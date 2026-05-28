@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Placed | MAINLUX</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/shared.css">
+<style>
+  .success-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 6% 80px;
+    text-align: center;
+  }
+  .success-content { max-width: 540px; }
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(46,125,50,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 2.2rem;
+    color: #2E7D32;
+  }
+  .success-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0B0B0B;
+    margin-bottom: 16px;
+  }
+  .success-content p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .order-id-display {
+    background: #F5F1EA;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 14px 20px;
+    margin: 24px 0;
+    font-size: 0.78rem;
+  }
+  .order-id-display span { color: #888; }
+  .order-id-display code { color: #C9A35B; font-weight: 700; letter-spacing: 0.5px; }
+  .success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<header class="navbar navbar-solid">
+  <a href="./index.html" class="logo">MAINLUX</a>
+  <nav class="nav-links">
+    <a href="./index.html">Home</a>
+    <a href="./male.html">Male</a>
+    <a href="./female.html">Female</a>
+    <a href="./about.html">About</a>
+    <a href="./contact.html">Contact</a>
+  </nav>
+  <div class="nav-right">
+    <a href="./cart.html" class="nav-cart">
+      <i class="ri-shopping-bag-3-line"></i>
+      <span class="cart-badge"></span>
+    </a>
+    <div class="menu-toggle" id="menuToggle"><i class="ri-menu-3-line"></i></div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./index.html">Home</a>
+  <a href="./male.html">Male Collection</a>
+  <a href="./female.html">Female Collection</a>
+  <a href="./cart.html">Cart</a>
+</div>
+
+<div class="success-page">
+  <div class="success-content">
+    <div class="success-icon"><i class="ri-check-line"></i></div>
+    <h1>Order Placed!</h1>
+    <p>Thank you for your order. We have received your request and will contact you shortly via WhatsApp to confirm your delivery.</p>
+    <p>Designed for everyday luxury. Made in Nigeria.</p>
+    <div class="order-id-display" id="orderIdDisplay">
+      <span>Order Reference: </span>
+      <code id="orderId">Loading...</code>
+    </div>
+    <div class="success-actions">
+      <a href="./index.html" class="btn-primary" style="display:inline-flex;gap:8px;align-items:center;text-decoration:none;padding:16px 32px;background:#0B0B0B;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">
+        Continue Shopping
+      </a>
+      <a href="https://wa.me/2348101181400" target="_blank" style="display:inline-flex;gap:8px;align-items:center;text-decoration:none;padding:16px 32px;background:#25D366;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">
+        <i class="ri-whatsapp-line"></i>
+        Track via WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-name">MAINLUX</span>
+      <p>Designed for everyday luxury.</p>
+      <p>Made in Nigeria.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/Mainluxury3" target="_blank"><i class="ri-instagram-line"></i></a>
+        <a href="https://tiktok.com/@Mainluxury3" target="_blank"><i class="ri-tiktok-line"></i></a>
+        <a href="https://wa.me/2348101181400" target="_blank"><i class="ri-whatsapp-line"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <a href="./male.html">Male Collection</a>
+      <a href="./female.html">Female Collection</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="./about.html">About</a>
+      <a href="./contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <span>08101181400</span>
+      <span>Mainluxury3@gmail.com</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span class="footer-year"></span> MAINLUX. All Rights Reserved.</span>
+    <div class="footer-bottom-right">Made with <span>♦</span> in Nigeria</div>
+  </div>
+</footer>
+
+<script src="./js/shared.js"></script>
+<script>
+const orderId = new URLSearchParams(window.location.search).get('order');
+document.getElementById('orderId').textContent = orderId ? orderId.slice(0, 16) + '...' : 'N/A';
+</script>
+</body>
+</html>

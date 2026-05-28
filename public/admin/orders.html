@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders | MAINLUX Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="logo">MAINLUX</span>
+      <span class="admin-tag">Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-section-title">Overview</span>
+      <a href="./dashboard.html" class="sidebar-link"><i class="ri-dashboard-line"></i> Dashboard</a>
+      <span class="nav-section-title">Catalogue</span>
+      <a href="./products.html" class="sidebar-link"><i class="ri-shirt-line"></i> Products</a>
+      <a href="./product-form.html" class="sidebar-link"><i class="ri-add-circle-line"></i> Add Product</a>
+      <span class="nav-section-title">Commerce</span>
+      <a href="./orders.html" class="sidebar-link active"><i class="ri-shopping-bag-3-line"></i> Orders</a>
+      <span class="nav-section-title">Store</span>
+      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-line"></i> View Store</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="signout-btn" id="signOutBtn"><i class="ri-logout-box-line"></i> Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1>Orders</h1>
+      <div class="topbar-right">
+        <span id="adminEmail"></span>
+        <span class="admin-badge" id="orderCountBadge"></span>
+      </div>
+    </div>
+    <div class="admin-content">
+
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search by name or phone..." oninput="renderOrders()">
+        <select id="statusFilter" onchange="renderOrders()">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Total</th>
+                <th>Items</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>View</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody">
+              <tr><td colspan="9" style="text-align:center;padding:40px;color:#999">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="orderModal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Order Details</h2>
+      <button class="modal-close" onclick="closeModal()"><i class="ri-close-line"></i></button>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./js/admin-auth.js"></script>
+<script>
+let allOrders = [];
+
+document.addEventListener('admin:ready', async () => {
+  const { data, error } = await window.adminDb
+    .from('orders')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) { document.getElementById('ordersBody').innerHTML = '<tr><td colspan="9" style="text-align:center;color:#999;padding:40px">Failed to load orders</td></tr>'; return; }
+  allOrders = data || [];
+  document.getElementById('orderCountBadge').textContent = `${allOrders.length} total`;
+  renderOrders();
+});
+
+function renderOrders() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const status = document.getElementById('statusFilter').value;
+  const filtered = allOrders.filter(o => {
+    const matchQ = !q || o.customer_name.toLowerCase().includes(q) || (o.customer_phone || '').includes(q);
+    const matchStatus = status === 'all' || o.status === status;
+    return matchQ && matchStatus;
+  });
+
+  const fmt = d => new Date(d).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' });
+  const statuses = ['pending','confirmed','shipped','delivered','cancelled'];
+
+  document.getElementById('ordersBody').innerHTML = filtered.length
+    ? filtered.map(o => `
+        <tr>
+          <td><code style="font-size:0.72rem;color:#C9A35B">${o.id.slice(0,8)}...</code></td>
+          <td><strong>${o.customer_name}</strong></td>
+          <td>${o.customer_phone}</td>
+          <td style="font-size:0.75rem;color:#888">${o.customer_email}</td>
+          <td style="font-weight:700">\u20a6${(o.total_amount||0).toLocaleString()}</td>
+          <td style="color:#888">${Array.isArray(o.items) ? o.items.length : 0} items</td>
+          <td>
+            <select class="status-select" onchange="updateStatus('${o.id}',this.value)">
+              ${statuses.map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`).join('')}
+            </select>
+          </td>
+          <td style="color:#888;font-size:0.75rem">${fmt(o.created_at)}</td>
+          <td><button class="btn btn-ghost btn-sm" onclick="viewOrder('${o.id}')"><i class="ri-eye-line"></i></button></td>
+        </tr>`).join('')
+    : '<tr><td colspan="9" style="text-align:center;padding:40px;color:#999">No orders found</td></tr>';
+}
+
+async function updateStatus(id, status) {
+  const { error } = await window.adminDb.from('orders').update({ status }).eq('id', id);
+  if (error) { alert('Failed to update status'); return; }
+  const order = allOrders.find(o => o.id === id);
+  if (order) order.status = status;
+}
+
+function viewOrder(id) {
+  const o = allOrders.find(o => o.id === id);
+  if (!o) return;
+  const items = Array.isArray(o.items) ? o.items : [];
+  document.getElementById('modalContent').innerHTML = `
+    <div style="margin-bottom:16px">
+      <p style="font-size:0.72rem;color:#888;margin-bottom:6px">Order ID</p>
+      <code style="color:#C9A35B">${o.id}</code>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+      <div><p style="font-size:0.68rem;color:#888;margin-bottom:4px">CUSTOMER</p><strong>${o.customer_name}</strong></div>
+      <div><p style="font-size:0.68rem;color:#888;margin-bottom:4px">PHONE</p><strong>${o.customer_phone}</strong></div>
+      <div><p style="font-size:0.68rem;color:#888;margin-bottom:4px">EMAIL</p><span style="font-size:0.82rem">${o.customer_email}</span></div>
+      <div><p style="font-size:0.68rem;color:#888;margin-bottom:4px">STATUS</p><span class="badge badge-${o.status}">${o.status}</span></div>
+    </div>
+    <div style="margin-bottom:20px">
+      <p style="font-size:0.68rem;color:#888;margin-bottom:6px">DELIVERY ADDRESS</p>
+      <p style="font-size:0.82rem">${o.shipping_address}</p>
+    </div>
+    <div>
+      <p style="font-size:0.68rem;color:#888;margin-bottom:12px">ORDER ITEMS</p>
+      ${items.map(item => `
+        <div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <img src="${item.image||''}" style="width:50px;height:50px;object-fit:cover;border:1px solid #eee">
+          <div style="flex:1">
+            <strong style="font-size:0.85rem">${item.name}</strong>
+            <p style="font-size:0.75rem;color:#888">Size: ${item.size||'N/A'} &nbsp;|&nbsp; Qty: ${item.quantity}</p>
+          </div>
+          <span style="font-weight:700;color:#C9A35B">\u20a6${(item.price*item.quantity).toLocaleString()}</span>
+        </div>`).join('')}
+      <div style="text-align:right;margin-top:16px;font-size:1rem;font-weight:700">
+        Total: <span style="color:#C9A35B">\u20a6${(o.total_amount||0).toLocaleString()}</span>
+      </div>
+    </div>`;
+  document.getElementById('orderModal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('orderModal').style.display = 'none';
+}
+
+document.getElementById('orderModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('orderModal')) closeModal();
+});
+</script>
+</body>
+</html>
