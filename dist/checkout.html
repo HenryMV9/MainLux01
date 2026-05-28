@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | MAINLUX</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/checkout-pmhE3R52.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/shared-BRjlQf2g.js">
+  <link rel="stylesheet" crossorigin href="/assets/shared-BEif-2Lz.css">
+  <link rel="stylesheet" crossorigin href="/assets/checkout-CU5Eki-A.css">
+</head>
+<body>
+
+<header class="navbar navbar-solid">
+  <a href="./index.html" class="logo">MAINLUX</a>
+  <nav class="nav-links">
+    <a href="./index.html">Home</a>
+    <a href="./male.html">Male</a>
+    <a href="./female.html">Female</a>
+  </nav>
+  <div class="nav-right">
+    <a href="./cart.html" class="nav-cart">
+      <i class="ri-shopping-bag-3-line"></i>
+      <span class="cart-badge"></span>
+    </a>
+    <div class="menu-toggle" id="menuToggle"><i class="ri-menu-3-line"></i></div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./index.html">Home</a>
+  <a href="./male.html">Male Collection</a>
+  <a href="./female.html">Female Collection</a>
+  <a href="./cart.html">Cart</a>
+</div>
+
+<div class="checkout-page">
+
+  <div class="checkout-form-wrap">
+
+    <div class="checkout-step">
+      <span class="step-number">01</span>
+      <h1>Checkout</h1>
+    </div>
+
+    <form id="checkoutForm" novalidate>
+
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="e.g. Emeka Johnson" autocomplete="name">
+        <span class="field-error" id="nameError"></span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+          <span class="field-error" id="emailError"></span>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="080..." autocomplete="tel">
+          <span class="field-error" id="phoneError"></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <textarea id="address" rows="3" placeholder="Street address, city, state..." autocomplete="street-address"></textarea>
+        <span class="field-error" id="addressError"></span>
+      </div>
+
+      <button type="submit" class="pay-btn" id="payBtn">
+        <i class="ri-lock-line"></i>
+        Place Order
+      </button>
+
+      <p class="checkout-note">
+        <i class="ri-whatsapp-line"></i>
+        We will contact you via WhatsApp to confirm your order.
+      </p>
+
+    </form>
+
+  </div>
+
+  <div class="order-summary-wrap" id="orderSummaryWrap">
+    <h2>Order Summary</h2>
+    <div class="order-items" id="checkoutItems"></div>
+    <div class="order-totals">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="checkoutSubtotal">N0</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span style="color:#2E7D32;font-size:0.72rem;font-weight:600">FREE in Lagos</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-row total-row">
+        <span>Total</span>
+        <span id="checkoutTotal">N0</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-name">MAINLUX</span>
+      <p>Designed for everyday luxury.</p>
+      <p>Made in Nigeria.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/Mainluxury3" target="_blank"><i class="ri-instagram-line"></i></a>
+        <a href="https://tiktok.com/@Mainluxury3" target="_blank"><i class="ri-tiktok-line"></i></a>
+        <a href="https://wa.me/2348101181400" target="_blank"><i class="ri-whatsapp-line"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <a href="./male.html">Male Collection</a>
+      <a href="./female.html">Female Collection</a>
+      <a href="./cart.html">Cart</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="./about.html">About</a>
+      <a href="./contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <span>08101181400</span>
+      <span>Mainluxury3@gmail.com</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span class="footer-year"></span> MAINLUX. All Rights Reserved.</span>
+    <div class="footer-bottom-right">Made with <span>♦</span> in Nigeria</div>
+  </div>
+</footer>
+
+</body>
+</html>
