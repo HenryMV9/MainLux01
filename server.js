@@ -7,41 +7,29 @@ const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 
-// ── MIDDLEWARE ────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ── SUPABASE ADMIN CLIENT (service key - server-side only) ─
-const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '';
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '';
 
-if (!supabaseUrl || !supabaseKey) {
-  console.error('Missing Supabase environment variables. Check SUPABASE_URL and SUPABASE_ANON_KEY.');
-  process.exit(1);
-}
+const supabaseAdmin = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-const supabaseAdmin = createClient(supabaseUrl, supabaseKey);
-
-// ── PUBLIC CONFIG ENDPOINT ────────────────────────────────
-// Delivers only the anon key (safe to expose) to the browser
 app.get('/api/config', (req, res) => {
   res.json({
-    supabaseUrl: supabaseUrl,
-    supabaseAnonKey: process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY
+    supabaseUrl,
+    supabaseAnonKey
   });
 });
 
-// ── ORDERS API ────────────────────────────────────────────
 app.post('/api/orders', async (req, res) => {
-  const {
-    customer_name,
-    customer_email,
-    customer_phone,
-    shipping_address,
-    items,
-    total_amount
-  } = req.body;
+  if (!supabaseAdmin) {
+    return res.status(503).json({ error: 'Service unavailable. Missing configuration.' });
+  }
+
+  const { customer_name, customer_email, customer_phone, shipping_address, items, total_amount } = req.body;
 
   if (!customer_name || !customer_email || !customer_phone ||
       !shipping_address || !Array.isArray(items) || items.length === 0 ||
@@ -68,8 +56,11 @@ app.post('/api/orders', async (req, res) => {
   res.json({ success: true, order_id: data.id });
 });
 
-// ── CONTACT API ────────────────────────────────────────────
 app.post('/api/contact', async (req, res) => {
+  if (!supabaseAdmin) {
+    return res.status(503).json({ error: 'Service unavailable. Missing configuration.' });
+  }
+
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
@@ -88,8 +79,7 @@ app.post('/api/contact', async (req, res) => {
   res.json({ success: true });
 });
 
-// ── START ─────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`\n  MAINLUX server running → http://localhost:${PORT}\n`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`MAINLUX server running on port ${PORT}`);
 });
