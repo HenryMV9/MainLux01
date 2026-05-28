@@ -1,13 +1,9 @@
-// MAINLUX Product Detail JS — Dynamic product page
+import { db } from './supabase-client.js';
 
 const productId = new URLSearchParams(window.location.search).get('id');
-
-if (!productId) {
-  window.location.href = './index.html';
-}
+if (!productId) window.location.href = './index.html';
 
 let count = 1;
-let currentProduct = null;
 
 function getStockLabel(stock) {
   if (stock <= 0) return { cls: 'out-of-stock', label: 'Out of Stock' };
@@ -16,34 +12,26 @@ function getStockLabel(stock) {
 }
 
 function renderProduct(p) {
-  currentProduct = p;
   const stock = getStockLabel(p.stock);
   const images = p.images && p.images.length ? p.images : ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop'];
   const collectionHref = p.category === 'male' ? './male.html' : './female.html';
   const collectionLabel = p.category === 'male' ? 'Male Collection' : 'Female Collection';
 
-  // Update page title
   document.title = `${p.name} | MAINLUX`;
-
-  // Breadcrumb
   document.getElementById('breadcrumbCollection').textContent = collectionLabel;
   document.getElementById('breadcrumbCollection').href = collectionHref;
   document.getElementById('breadcrumbName').textContent = p.name;
 
-  // Gallery
   const gallerySection = document.getElementById('gallerySection');
   gallerySection.innerHTML = `
     <div class="main-image">
       <img id="mainProductImage" src="${images[0]}" alt="${p.name}">
     </div>
     <div class="thumbnail-grid">
-      ${images.map((img, i) => `
-        <img class="thumbnail ${i === 0 ? 'active-thumb' : ''}" src="${img}" alt="${p.name}" loading="lazy">
-      `).join('')}
+      ${images.map((img, i) => `<img class="thumbnail ${i === 0 ? 'active-thumb' : ''}" src="${img}" alt="${p.name}" loading="lazy">`).join('')}
     </div>
   `;
 
-  // Thumbnail click
   gallerySection.querySelectorAll('.thumbnail').forEach(thumb => {
     thumb.addEventListener('click', () => {
       document.getElementById('mainProductImage').src = thumb.src;
@@ -52,29 +40,22 @@ function renderProduct(p) {
     });
   });
 
-  // Product info
   document.getElementById('infoSection').innerHTML = `
     <span class="category-badge">${collectionLabel}</span>
     <h1>${p.name}</h1>
     <p class="product-price">&#8358;${p.price.toLocaleString()}</p>
     <span class="stock-badge ${stock.cls}">${stock.label}</span>
-
     <div class="divider"></div>
-
     <span class="option-label">Select Size</span>
     <div class="sizes">
-      ${(p.sizes || []).map(size => `
-        <button class="size-btn" data-size="${size}">${size}</button>
-      `).join('')}
+      ${(p.sizes || []).map(size => `<button class="size-btn" data-size="${size}">${size}</button>`).join('')}
     </div>
-
     <span class="option-label">Quantity</span>
     <div class="quantity-box">
       <button id="minusBtn">-</button>
       <span id="quantity">1</span>
       <button id="plusBtn">+</button>
     </div>
-
     <div class="product-buttons">
       <button class="add-cart-btn" id="addCartBtn" ${p.stock <= 0 ? 'disabled' : ''}>
         <i class="ri-shopping-bag-line"></i>
@@ -85,16 +66,13 @@ function renderProduct(p) {
         Order On WhatsApp
       </a>
     </div>
-
     <div class="divider"></div>
-
     <div class="product-description">
       <h3>Description</h3>
       <p>${p.description || 'Premium luxury slide designed and made in Nigeria.'}</p>
     </div>
   `;
 
-  // Size selection
   const sizeBtns = document.querySelectorAll('.size-btn');
   sizeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -103,42 +81,19 @@ function renderProduct(p) {
     });
   });
 
-  // Quantity controls
-  const plusBtn = document.getElementById('plusBtn');
-  const minusBtn = document.getElementById('minusBtn');
-  const quantityEl = document.getElementById('quantity');
+  document.getElementById('plusBtn').addEventListener('click', () => { count++; document.getElementById('quantity').textContent = count; });
+  document.getElementById('minusBtn').addEventListener('click', () => { if (count > 1) { count--; document.getElementById('quantity').textContent = count; } });
 
-  plusBtn.addEventListener('click', () => {
-    count++;
-    quantityEl.textContent = count;
-  });
-
-  minusBtn.addEventListener('click', () => {
-    if (count > 1) { count--; quantityEl.textContent = count; }
-  });
-
-  // Add to cart
   document.getElementById('addCartBtn').addEventListener('click', () => {
     const selectedSize = document.querySelector('.size-btn.active-size');
     if (!selectedSize && p.sizes && p.sizes.length > 0) {
       window.showToast && window.showToast('Please select a size', 'error');
       return;
     }
-
     const cart = JSON.parse(localStorage.getItem('mainluxCart') || '[]');
     const existing = cart.find(item => item.id === p.id && item.size == (selectedSize ? selectedSize.dataset.size : ''));
-    if (existing) {
-      existing.quantity += count;
-    } else {
-      cart.push({
-        id: p.id,
-        name: p.name,
-        price: p.price,
-        image: images[0],
-        size: selectedSize ? selectedSize.dataset.size : '',
-        quantity: count
-      });
-    }
+    if (existing) { existing.quantity += count; }
+    else { cart.push({ id: p.id, name: p.name, price: p.price, image: images[0], size: selectedSize ? selectedSize.dataset.size : '', quantity: count }); }
     localStorage.setItem('mainluxCart', JSON.stringify(cart));
     window.updateCartBadge && window.updateCartBadge();
     window.showToast && window.showToast(`${p.name} added to cart`);
@@ -148,20 +103,16 @@ function renderProduct(p) {
 function renderRelated(products, currentId) {
   const related = products.filter(p => p.id !== currentId).slice(0, 3);
   if (!related.length) return;
-
   const section = document.getElementById('relatedSection');
   const grid = document.getElementById('relatedGrid');
   section.style.display = 'block';
-
   grid.innerHTML = related.map(p => {
     const img = p.images && p.images.length ? p.images[0] : '';
     const stock = getStockLabel(p.stock);
     return `
       <a href="./product.html?id=${p.id}" class="product-link">
         <div class="product-card">
-          <div class="product-image">
-            <img src="${img}" alt="${p.name}" loading="lazy">
-          </div>
+          <div class="product-image"><img src="${img}" alt="${p.name}" loading="lazy"></div>
           <div class="product-info">
             <span class="stock ${stock.cls}">${stock.label}</span>
             <h3>${p.name}</h3>
@@ -172,29 +123,15 @@ function renderRelated(products, currentId) {
   }).join('');
 }
 
-document.addEventListener('db:ready', async () => {
-  const { data: product, error } = await window.db
-    .from('products')
-    .select('*')
-    .eq('id', productId)
-    .eq('is_active', true)
-    .maybeSingle();
-
+async function loadProduct() {
+  const { data: product, error } = await db.from('products').select('*').eq('id', productId).eq('is_active', true).maybeSingle();
   if (error || !product) {
     document.getElementById('infoSection').innerHTML = '<p style="padding:40px 0;color:#888">Product not found.</p>';
     return;
   }
-
   renderProduct(product);
-
-  // Load related
-  const { data: related } = await window.db
-    .from('products')
-    .select('*')
-    .eq('category', product.category)
-    .eq('is_active', true)
-    .neq('id', productId)
-    .limit(3);
-
+  const { data: related } = await db.from('products').select('*').eq('category', product.category).eq('is_active', true).neq('id', productId).limit(3);
   if (related && related.length) renderRelated(related, productId);
-});
+}
+
+loadProduct();

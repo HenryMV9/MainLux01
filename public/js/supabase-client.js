@@ -1,14 +1,6 @@
-// MAINLUX Supabase Client
-// Initializes a singleton Supabase client using config from the server
+import { createClient } from '@supabase/supabase-js';
 
-(async () => {
-  try {
-    const res = await fetch('/api/config');
-    const { supabaseUrl, supabaseAnonKey } = await res.json();
-    const { createClient } = window.supabase;
-    window.db = createClient(supabaseUrl, supabaseAnonKey);
-    document.dispatchEvent(new Event('db:ready'));
-  } catch (err) {
-    console.error('Failed to initialize Supabase client:', err);
-  }
-})();
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+export const db = createClient(supabaseUrl, supabaseAnonKey);

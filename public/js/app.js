@@ -1,6 +1,5 @@
-// MAINLUX Homepage JS — Hero slider + Dynamic new arrivals
+import { db } from './supabase-client.js';
 
-// ── HERO SLIDER ───────────────────────────────────────────
 const slides = document.querySelectorAll('.hero-slide');
 const dots = document.querySelectorAll('.dot');
 let current = 0;
@@ -22,45 +21,30 @@ function startAutoSlide() {
 }
 
 dots.forEach((dot, i) => {
-  dot.addEventListener('click', () => {
-    goToSlide(i);
-    startAutoSlide();
-  });
+  dot.addEventListener('click', () => { goToSlide(i); startAutoSlide(); });
 });
 
 startAutoSlide();
 
-// ── NEW ARRIVALS (featured products from Supabase) ────────
 function getStockLabel(stock) {
   if (stock <= 0) return { cls: 'out-of-stock', label: 'Out of Stock' };
   if (stock <= 3) return { cls: 'low-stock', label: 'Low Stock' };
   return { cls: 'in-stock', label: 'In Stock' };
 }
 
-document.addEventListener('db:ready', async () => {
-  const { data, error } = await window.db
-    .from('products')
-    .select('*')
-    .eq('is_featured', true)
-    .eq('is_active', true)
-    .limit(3);
-
+async function loadArrivals() {
   const grid = document.getElementById('newArrivals');
   if (!grid) return;
 
+  let { data, error } = await db.from('products').select('*').eq('is_featured', true).eq('is_active', true).limit(3);
+
   if (error || !data || !data.length) {
-    // Fallback to any products
-    const { data: fallback } = await window.db
-      .from('products')
-      .select('*')
-      .eq('is_active', true)
-      .limit(3);
+    const { data: fallback } = await db.from('products').select('*').eq('is_active', true).limit(3);
     renderArrivals(grid, fallback || []);
     return;
   }
-
   renderArrivals(grid, data);
-});
+}
 
 function renderArrivals(grid, products) {
   if (!products.length) {
@@ -82,7 +66,7 @@ function renderArrivals(grid, products) {
             <h3>${p.name}</h3>
             <p class="price">&#8358;${p.price.toLocaleString()}</p>
             <div class="sizes">Sizes: ${(p.sizes || []).join(', ')}</div>
-            <button class="cart-btn" onclick="quickAdd(event,'${p.id}')">
+            <button class="cart-btn" data-id="${p.id}">
               <i class="ri-shopping-bag-line"></i>
               Quick Add
             </button>
@@ -91,32 +75,25 @@ function renderArrivals(grid, products) {
       </a>`;
   }).join('');
 
-  // Trigger fade-in
   setTimeout(() => {
     grid.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
   }, 100);
-}
 
-function quickAdd(e, productId) {
-  e.preventDefault();
-  e.stopPropagation();
-  // Re-fetch from rendered DOM since we don't cache products here
-  fetch(`/api/config`)
-    .then(r => r.json())
-    .then(async config => {
-      const { createClient } = window.supabase;
-      const db = createClient(config.supabaseUrl, config.supabaseAnonKey);
-      const { data: p } = await db.from('products').select('*').eq('id', productId).maybeSingle();
+  grid.querySelectorAll('.cart-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const { data: p } = await db.from('products').select('*').eq('id', btn.dataset.id).maybeSingle();
       if (!p) return;
       const cart = JSON.parse(localStorage.getItem('mainluxCart') || '[]');
       const existing = cart.find(item => item.id === p.id);
       if (existing) { existing.quantity += 1; }
-      else {
-        cart.push({ id: p.id, name: p.name, price: p.price, image: (p.images || [])[0] || '', size: (p.sizes || [])[0] || '', quantity: 1 });
-      }
+      else { cart.push({ id: p.id, name: p.name, price: p.price, image: (p.images || [])[0] || '', size: (p.sizes || [])[0] || '', quantity: 1 }); }
       localStorage.setItem('mainluxCart', JSON.stringify(cart));
       window.updateCartBadge && window.updateCartBadge();
       window.showToast && window.showToast(`${p.name} added to cart`);
     });
+  });
 }
-window.quickAdd = quickAdd;
+
+loadArrivals();

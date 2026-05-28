@@ -33,41 +33,6 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script>
-(async () => {
-  const res = await fetch('/api/config');
-  const { supabaseUrl, supabaseAnonKey } = await res.json();
-  const { createClient } = window.supabase;
-  const db = createClient(supabaseUrl, supabaseAnonKey);
-
-  // If already signed in, redirect
-  const { data: { session } } = await db.auth.getSession();
-  if (session) { window.location.href = '/admin/dashboard.html'; return; }
-
-  document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('loginBtn');
-    const errorEl = document.getElementById('loginError');
-    const email = document.getElementById('adminEmail').value.trim();
-    const password = document.getElementById('adminPassword').value;
-
-    btn.disabled = true;
-    btn.innerHTML = '<i class="ri-loader-4-line"></i> Signing in...';
-    errorEl.textContent = '';
-
-    const { error } = await db.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      errorEl.textContent = 'Invalid email or password. Please try again.';
-      btn.disabled = false;
-      btn.innerHTML = '<i class="ri-shield-check-line"></i> Sign In';
-      return;
-    }
-
-    window.location.href = '/admin/dashboard.html';
-  });
-})();
-</script>
+<script type="module" src="./js/login.js"></script>
 </body>
 </html>

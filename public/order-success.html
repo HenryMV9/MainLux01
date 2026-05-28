@@ -137,8 +137,8 @@
   </div>
 </footer>
 
-<script src="./js/shared.js"></script>
-<script>
+<script type="module" src="./js/shared.js"></script>
+<script type="module">
 const orderId = new URLSearchParams(window.location.search).get('order');
 document.getElementById('orderId').textContent = orderId ? orderId.slice(0, 16) + '...' : 'N/A';
 </script>

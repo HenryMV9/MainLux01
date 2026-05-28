@@ -1,4 +1,4 @@
-// MAINLUX Shop JS — Dynamic product loading from Supabase
+import { db } from './supabase-client.js';
 
 const grid = document.getElementById('productsGrid');
 const category = grid ? grid.dataset.category : 'male';
@@ -31,12 +31,7 @@ function renderSkeletons() {
 
 function renderProducts(products) {
   if (!products.length) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <i class="ri-search-line"></i>
-        <h3>No products found</h3>
-        <p>Try adjusting your filters.</p>
-      </div>`;
+    grid.innerHTML = `<div class="empty-state"><i class="ri-search-line"></i><h3>No products found</h3><p>Try adjusting your filters.</p></div>`;
     if (countEl) countEl.textContent = '';
     return;
   }
@@ -48,11 +43,9 @@ function renderProducts(products) {
     const stock = getStockLabel(p.stock);
     const sizesText = p.sizes && p.sizes.length ? `Sizes: ${p.sizes.join(', ')}` : '';
     const disabled = p.stock <= 0 ? 'disabled' : '';
-    const maxSize = p.sizes && p.sizes.length ? Math.max(...p.sizes) : 0;
-
     return `
       <a href="./product.html?id=${p.id}" class="product-link">
-        <div class="product-card fade-in" data-size="${maxSize}" data-price="${p.price}" data-sizes="${JSON.stringify(p.sizes || []).replace(/"/g, '&quot;')}">
+        <div class="product-card fade-in" data-price="${p.price}" data-sizes="${JSON.stringify(p.sizes || []).replace(/"/g, '&quot;')}">
           <div class="product-image">
             <img src="${img}" alt="${p.name}" loading="lazy">
           </div>
@@ -70,12 +63,10 @@ function renderProducts(products) {
       </a>`;
   }).join('');
 
-  // Scroll animation observer
   grid.querySelectorAll('.fade-in').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), i * 80);
   });
 
-  // Quick Add to Cart
   grid.querySelectorAll('.cart-btn:not([disabled])').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -83,21 +74,10 @@ function renderProducts(products) {
       const id = btn.dataset.id;
       const product = allProducts.find(p => p.id === id);
       if (!product) return;
-
       const cart = JSON.parse(localStorage.getItem('mainluxCart') || '[]');
       const existing = cart.find(item => item.id === id);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.images && product.images.length ? product.images[0] : '',
-          size: product.sizes && product.sizes.length ? product.sizes[0] : '',
-          quantity: 1
-        });
-      }
+      if (existing) { existing.quantity += 1; }
+      else { cart.push({ id: product.id, name: product.name, price: product.price, image: product.images && product.images.length ? product.images[0] : '', size: product.sizes && product.sizes.length ? product.sizes[0] : '', quantity: 1 }); }
       localStorage.setItem('mainluxCart', JSON.stringify(cart));
       window.updateCartBadge && window.updateCartBadge();
       window.showToast && window.showToast(`${product.name} added to cart`);
@@ -109,37 +89,25 @@ function applyFilters() {
   const size = sizeFilter ? sizeFilter.value : 'all';
   const price = priceFilter ? priceFilter.value : 'all';
   const sort = sortFilter ? sortFilter.value : 'default';
-
   let filtered = allProducts.filter(p => {
     const sizeMatch = size === 'all' || (p.sizes && p.sizes.includes(parseInt(size)));
     const priceMatch = price === 'all' || p.price <= parseInt(price);
     return sizeMatch && priceMatch;
   });
-
   if (sort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
   else if (sort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-
   renderProducts(filtered);
 }
 
 async function loadProducts() {
   renderSkeletons();
-  document.addEventListener('db:ready', async () => {
-    const { data, error } = await window.db
-      .from('products')
-      .select('*')
-      .eq('category', category)
-      .eq('is_active', true)
-      .order('created_at', { ascending: false });
-
-    if (error || !data) {
-      grid.innerHTML = '<div class="empty-state"><i class="ri-error-warning-line"></i><h3>Could not load products</h3><p>Please refresh the page.</p></div>';
-      return;
-    }
-
-    allProducts = data;
-    applyFilters();
-  });
+  const { data, error } = await db.from('products').select('*').eq('category', category).eq('is_active', true).order('created_at', { ascending: false });
+  if (error || !data) {
+    grid.innerHTML = '<div class="empty-state"><i class="ri-error-warning-line"></i><h3>Could not load products</h3><p>Please refresh the page.</p></div>';
+    return;
+  }
+  allProducts = data;
+  applyFilters();
 }
 
 if (sizeFilter) sizeFilter.addEventListener('change', applyFilters);
