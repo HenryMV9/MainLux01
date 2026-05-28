@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orders | MAINLUX Admin</title>
+<title>Inventory | MAINLUX Admin</title>
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/admin-orders-B5V4vHez.js"></script>
+  <script type="module" crossorigin src="/assets/admin-inventory-Cu5d1lOg.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/index-dZcf2LBU.js">
   <link rel="modulepreload" crossorigin href="/assets/admin-ui-Cz7ejArm.js">
@@ -31,10 +31,10 @@
       <a href="./product-form.html" class="sidebar-link"><i class="ri-add-circle-line"></i> Add Product</a>
 
       <span class="nav-group-title">Commerce</span>
-      <a href="./orders.html" class="sidebar-link active"><i class="ri-shopping-bag-3-line"></i> Orders</a>
+      <a href="./orders.html" class="sidebar-link"><i class="ri-shopping-bag-3-line"></i> Orders</a>
 
       <span class="nav-group-title">Store</span>
-      <a href="./inventory.html" class="sidebar-link"><i class="ri-stack-line"></i> Inventory</a>
+      <a href="./inventory.html" class="sidebar-link active"><i class="ri-stack-line"></i> Inventory</a>
       <a href="./settings.html" class="sidebar-link"><i class="ri-settings-3-line"></i> Settings</a>
       <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-2-line"></i> View Store</a>
     </nav>
@@ -54,10 +54,10 @@
     <div class="admin-topbar">
       <div class="topbar-left">
         <button class="menu-toggle" id="menuToggle"><i class="ri-menu-2-line"></i></button>
-        <span class="topbar-title">Orders</span>
+        <span class="topbar-title">Inventory</span>
       </div>
       <div class="topbar-right">
-        <span class="admin-pill" id="orderCountBadge">Admin</span>
+        <span class="admin-pill">Admin</span>
       </div>
     </div>
 
@@ -66,15 +66,18 @@
       <div class="filter-bar">
         <div class="search-wrap">
           <i class="ri-search-line"></i>
-          <input type="text" id="searchInput" placeholder="Search by name or phone...">
+          <input type="text" id="searchInput" placeholder="Search products...">
         </div>
-        <select id="statusFilter">
-          <option value="all">All Status</option>
-          <option value="pending">Pending</option>
-          <option value="confirmed">Confirmed</option>
-          <option value="shipped">Shipped</option>
-          <option value="delivered">Delivered</option>
-          <option value="cancelled">Cancelled</option>
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <select id="stockFilter">
+          <option value="all">All Stock</option>
+          <option value="low">Low Stock (≤3)</option>
+          <option value="out">Out of Stock</option>
+          <option value="ok">In Stock</option>
         </select>
       </div>
 
@@ -83,19 +86,17 @@
           <table class="admin-table">
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Total</th>
-                <th>Items</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Total Stock</th>
+                <th>New Stock Qty</th>
                 <th>Status</th>
-                <th>Date</th>
-                <th></th>
+                <th>Action</th>
               </tr>
             </thead>
-            <tbody id="ordersBody">
-              <tr><td colspan="9" style="text-align:center;padding:40px;color:#aaa">Loading...</td></tr>
+            <tbody id="inventoryBody">
+              <tr><td colspan="7" style="text-align:center;padding:40px;color:#aaa">Loading...</td></tr>
             </tbody>
           </table>
         </div>
@@ -103,17 +104,6 @@
 
     </div>
   </main>
-</div>
-
-<!-- ORDER DETAIL MODAL -->
-<div class="modal-overlay" id="orderModal" style="display:none">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>Order Details</h2>
-      <button class="modal-close" id="modalClose"><i class="ri-close-line"></i></button>
-    </div>
-    <div class="modal-body" id="modalContent"></div>
-  </div>
 </div>
 
 </body>
