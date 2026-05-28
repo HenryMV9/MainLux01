@@ -1,0 +1,7 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";import"./shared-BRjlQf2g.js";const l="https://mpmvsrestxuuebvtnsqi.supabase.co",d=`${l}/functions/v1/submit-contact`,o="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1wbXZzcmVzdHh1dWVidnRuc3FpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjMyNzYsImV4cCI6MjA5NTQ5OTI3Nn0.zD2b5km07O-6N-hetHuQjHh-fbzJ4Vq4XYSBVnfQyYI",r="2348101181400";document.getElementById("contactForm").addEventListener("submit",async a=>{a.preventDefault();const e=document.getElementById("contactSubmitBtn"),t=document.getElementById("formSuccess"),n=document.getElementById("formError");t.style.display="none",n.style.display="none";const s=document.getElementById("cName").value.trim(),c=document.getElementById("cEmail").value.trim(),i=document.getElementById("cMessage").value.trim();e.disabled=!0,e.innerHTML='<i class="ri-loader-4-line"></i> Sending...';try{if(!(await fetch(d,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${o}`,Apikey:o},body:JSON.stringify({name:s,email:c,message:i})})).ok)throw new Error;t.style.display="flex",document.getElementById("contactForm").reset();const m=`*New Contact Message — MAINLUX*
+
+*Name:* ${s}
+*Email:* ${c}
+
+*Message:*
+${i}`;window.open(`https://wa.me/${r}?text=${encodeURIComponent(m)}`,"_blank")}catch{n.style.display="flex"}finally{e.disabled=!1,e.innerHTML='<i class="ri-send-plane-line"></i> Send Message'}});

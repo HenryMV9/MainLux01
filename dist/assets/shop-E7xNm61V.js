@@ -1,4 +1,4 @@
-import{d as p}from"./supabase-client-DkRLAGM-.js";const c=document.getElementById("productsGrid"),v=c?c.dataset.category:"male",l=document.getElementById("sizeFilter"),d=document.getElementById("priceFilter"),u=document.getElementById("sortFilter"),r=document.getElementById("productCount");let m=[];function h(i){return i<=0?{cls:"out-of-stock",label:"Out of Stock"}:i<=3?{cls:"low-stock",label:"Low Stock"}:{cls:"in-stock",label:"In Stock"}}function k(){c.innerHTML=Array(3).fill(`
+import{d as p}from"./supabase-client-Co2q9R3y.js";const c=document.getElementById("productsGrid"),v=c?c.dataset.category:"male",l=document.getElementById("sizeFilter"),d=document.getElementById("priceFilter"),u=document.getElementById("sortFilter"),r=document.getElementById("productCount");let m=[];function h(i){return i<=0?{cls:"out-of-stock",label:"Out of Stock"}:i<=3?{cls:"low-stock",label:"Low Stock"}:{cls:"in-stock",label:"In Stock"}}function k(){c.innerHTML=Array(3).fill(`
     <div class="skeleton-card">
       <div class="skeleton-image"></div>
       <div class="skeleton-info">
