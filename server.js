@@ -13,16 +13,21 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ── SUPABASE ADMIN CLIENT (service key - server-side only) ─
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY || process.env.VITE_SUPABASE_ANON_KEY
-);
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing Supabase environment variables. Check SUPABASE_URL and SUPABASE_ANON_KEY.');
+  process.exit(1);
+}
+
+const supabaseAdmin = createClient(supabaseUrl, supabaseKey);
 
 // ── PUBLIC CONFIG ENDPOINT ────────────────────────────────
 // Delivers only the anon key (safe to expose) to the browser
 app.get('/api/config', (req, res) => {
   res.json({
-    supabaseUrl: process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL,
+    supabaseUrl: supabaseUrl,
     supabaseAnonKey: process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY
   });
 });
