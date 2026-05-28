@@ -23,6 +23,8 @@ export default defineConfig({
         'admin-orders': resolve(__dirname, 'public/admin/orders.html'),
         'admin-products': resolve(__dirname, 'public/admin/products.html'),
         'admin-product-form': resolve(__dirname, 'public/admin/product-form.html'),
+        'admin-inventory': resolve(__dirname, 'public/admin/inventory.html'),
+        'admin-settings': resolve(__dirname, 'public/admin/settings.html'),
       },
     },
   },
