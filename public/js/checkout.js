@@ -1,6 +1,7 @@
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://mpmvsrestxuuebvtnsqi.supabase.co';
 const ORDER_ENDPOINT = `${SUPABASE_URL}/functions/v1/submit-order`;
-const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1wbXZzcmVzdHh1dWVidnRuc3FpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjMyNzYsImV4cCI6MjA5NTQ5OTI3Nn0.zD2b5km07O-6N-hetHuQjHh-fbzJ4Vq4XYSBVnfQyYI';
+const WHATSAPP_NUMBER = '2348101181400';
 
 function getCart() {
   return JSON.parse(localStorage.getItem('mainluxCart') || '[]');
@@ -41,6 +42,13 @@ function clearErrors() {
   ['nameError', 'emailError', 'phoneError', 'addressError'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ''; });
 }
 
+function buildWhatsAppMessage(name, email, phone, address, cart, total) {
+  const itemLines = cart.map(item =>
+    `  • ${item.name} (Size: ${item.size || 'N/A'}, Qty: ${item.quantity}) — \u20a6${(item.price * item.quantity).toLocaleString()}`
+  ).join('\n');
+  return `*New Order — MAINLUX*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Delivery Address:* ${address}\n\n*Items:*\n${itemLines}\n\n*Total: \u20a6${total.toLocaleString()}*`;
+}
+
 document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   clearErrors();
@@ -74,7 +82,12 @@ document.getElementById('checkoutForm').addEventListener('submit', async (e) => 
     });
     const result = await res.json();
     if (!res.ok) throw new Error(result.error || 'Order failed');
+
     localStorage.removeItem('mainluxCart');
+
+    const waMessage = buildWhatsAppMessage(name, email, phone, address, cart, total);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`, '_blank');
+
     window.location.href = `./order-success.html?order=${result.order_id}`;
   } catch (err) {
     payBtn.disabled = false;
