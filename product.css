@@ -189,8 +189,10 @@ body{
     font-weight:600;
 }
 
-.sizes button:hover{
+.sizes button:hover,
+.sizes button.active-size{
     background:var(--gold);
+    color:white;
 }
 
 /* QUANTITY */

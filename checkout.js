@@ -78,6 +78,6 @@ alert(
 
 localStorage.removeItem("mainluxCart");
 
-window.location.href = "/";
+window.location.href = "./index.html";
 
 });

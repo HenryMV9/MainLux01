@@ -93,7 +93,7 @@ cartButtons.forEach(button => {
             JSON.stringify(cart)
         );
 
-        window.location.href = "/cart.html";
+        window.location.href = "./cart.html";
 
     });
 
