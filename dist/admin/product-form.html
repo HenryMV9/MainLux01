@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Form | MAINLUX Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/admin-product-form-CiSjdnXm.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/index-dZcf2LBU.js">
+  <link rel="modulepreload" crossorigin href="/assets/admin-auth-BiH_RBYv.js">
+  <link rel="stylesheet" crossorigin href="/assets/admin-Cwj52KcZ.css">
+</head>
+<body>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="logo">MAINLUX</span>
+      <span class="admin-tag">Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-section-title">Overview</span>
+      <a href="./dashboard.html" class="sidebar-link"><i class="ri-dashboard-line"></i> Dashboard</a>
+      <span class="nav-section-title">Catalogue</span>
+      <a href="./products.html" class="sidebar-link"><i class="ri-shirt-line"></i> Products</a>
+      <a href="./product-form.html" class="sidebar-link active"><i class="ri-add-circle-line"></i> Add Product</a>
+      <span class="nav-section-title">Commerce</span>
+      <a href="./orders.html" class="sidebar-link"><i class="ri-shopping-bag-3-line"></i> Orders</a>
+      <span class="nav-section-title">Store</span>
+      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-line"></i> View Store</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="signout-btn" id="signOutBtn"><i class="ri-logout-box-line"></i> Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1 id="formTitle">Add Product</h1>
+      <div class="topbar-right">
+        <span id="adminEmail"></span>
+        <a href="./products.html" class="btn btn-ghost btn-sm"><i class="ri-arrow-left-line"></i> Back</a>
+      </div>
+    </div>
+    <div class="admin-content">
+      <form class="admin-form" id="productForm">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Product Name *</label>
+            <input type="text" id="pName" placeholder="e.g. Mainlux Noir" required>
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="pCategory" required>
+              <option value="">Select category</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price (NGN) *</label>
+            <input type="number" id="pPrice" placeholder="e.g. 45000" min="1" required>
+          </div>
+          <div class="form-group">
+            <label>Stock Quantity *</label>
+            <input type="number" id="pStock" placeholder="e.g. 20" min="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="pDescription" rows="4" placeholder="Describe this product..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Available Sizes</label>
+          <div class="sizes-check" id="sizesCheck">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Product Images</label>
+          <div class="image-upload-area" id="uploadArea">
+            <i class="ri-image-add-line"></i>
+            <p>Click to upload images or drag and drop</p>
+            <p style="font-size:0.7rem;margin-top:4px;color:#bbb">PNG, JPG up to 5MB each. First image is the primary.</p>
+            <input type="file" id="imageInput" multiple accept="image/*" style="display:none">
+          </div>
+          <div class="upload-preview" id="uploadPreview"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Settings</label>
+          <div>
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-label">Featured Product</div>
+                <div class="toggle-sub">Show in homepage New Arrivals section</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="pFeatured">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-label">Active (Visible in Store)</div>
+                <div class="toggle-sub">Uncheck to hide from customers</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="pActive" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <button type="submit" class="btn btn-gold" id="submitBtn">
+            <i class="ri-save-line"></i> Save Product
+          </button>
+          <a href="./products.html" class="btn btn-ghost">Cancel</a>
+        </div>
+
+      </form>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

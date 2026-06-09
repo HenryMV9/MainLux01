@@ -1,0 +1,411 @@
+/* ============================================================
+   MAINLUX HOMEPAGE STYLES
+   ============================================================ */
+
+/* ── HERO ─────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-slides {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+  transform: scale(1.05);
+  transition: opacity 1s ease, transform 7s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11,11,11,0.75) 0%, rgba(11,11,11,0.35) 60%, rgba(11,11,11,0.1) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 6%;
+  max-width: 680px;
+}
+
+.hero-overline {
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #C9A35B;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  color: #FFFFFF;
+  font-weight: 700;
+  line-height: 1.08;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 em {
+  font-style: italic;
+  color: #C9A35B;
+}
+
+.hero-content p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 36px;
+  max-width: 440px;
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 36px;
+  left: 6%;
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+}
+
+.dot {
+  width: 28px;
+  height: 3px;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.dot.active {
+  background: #C9A35B;
+  width: 48px;
+}
+
+/* ── MARQUEE ─────────────────────────────────────────────── */
+
+.marquee-strip {
+  background: #0B0B0B;
+  padding: 14px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(201, 163, 91, 0.2);
+  border-bottom: 1px solid rgba(201, 163, 91, 0.2);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 32px;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-track span {
+  font-size: 0.7rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.marquee-track span:nth-child(even) {
+  color: #C9A35B;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── COLLECTIONS ─────────────────────────────────────────── */
+
+.collections-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 70vh;
+  min-height: 450px;
+}
+
+.collection-card {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.collection-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s ease;
+}
+
+.collection-card:hover .collection-img {
+  transform: scale(1.06);
+}
+
+.collection-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11,11,11,0.8) 0%, rgba(11,11,11,0.1) 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 50px 40px;
+  transition: background 0.4s ease;
+}
+
+.collection-card:hover .collection-overlay {
+  background: linear-gradient(to top, rgba(11,11,11,0.9) 0%, rgba(11,11,11,0.2) 70%);
+}
+
+.collection-content .overline {
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #C9A35B;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.collection-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: #FFFFFF;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.collection-cta {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #C9A35B;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.3s ease;
+}
+
+.collection-card:hover .collection-cta {
+  gap: 14px;
+}
+
+/* ── NEW ARRIVALS ─────────────────────────────────────────── */
+
+.arrivals-section {
+  padding: 90px 6% 80px;
+  background: #F5F1EA;
+}
+
+.arrivals-section .products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ── WHY MAINLUX ─────────────────────────────────────────── */
+
+.why-section {
+  padding: 90px 6%;
+  background: #FFFFFF;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px;
+  margin-top: 10px;
+}
+
+.why-card {
+  text-align: center;
+  padding: 40px 24px;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.why-card:hover {
+  box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+}
+
+.why-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(201, 163, 91, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.4rem;
+  color: #C9A35B;
+}
+
+.why-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0B0B0B;
+  margin-bottom: 10px;
+}
+
+.why-card p {
+  font-size: 0.82rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* ── MADE IN NIGERIA ─────────────────────────────────────── */
+
+.nigeria-section {
+  padding: 100px 6%;
+  background: #0B0B0B;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.nigeria-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1978&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+}
+
+.nigeria-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.nigeria-section .overline {
+  color: #C9A35B;
+  display: block;
+  margin-bottom: 16px;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.nigeria-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #FFFFFF;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.nigeria-content p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.9;
+  margin-bottom: 36px;
+}
+
+/* ── SOCIAL PROOF ────────────────────────────────────────── */
+
+.social-proof-section {
+  padding: 80px 6%;
+  background: #F5F1EA;
+}
+
+.social-handles {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.handle-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 32px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.handle-card:hover {
+  border-color: #C9A35B;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  transform: translateY(-3px);
+}
+
+.handle-card i {
+  font-size: 1.4rem;
+  color: #C9A35B;
+}
+
+.handle-card span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0B0B0B;
+  letter-spacing: 0.5px;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+
+@media (max-width: 960px) {
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .arrivals-section .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .collections-section {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .collection-card { height: 50vh; min-height: 320px; }
+}
+
+@media (max-width: 600px) {
+  .hero-content h1 { font-size: 2.4rem; }
+  .hero-cta { flex-direction: column; }
+  .why-grid { grid-template-columns: 1fr; }
+  .arrivals-section .products-grid { grid-template-columns: 1fr; }
+  .collections-section { min-height: auto; }
+  .handle-card { min-width: unset; flex: 1; min-width: 140px; }
+}

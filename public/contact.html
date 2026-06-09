@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | MAINLUX</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/shared.css">
+<link rel="stylesheet" href="./css/contact.css">
+</head>
+<body>
+
+<header class="navbar navbar-solid">
+  <a href="./index.html" class="logo">MAINLUX</a>
+  <nav class="nav-links">
+    <a href="./index.html">Home</a>
+    <a href="./male.html">Male</a>
+    <a href="./female.html">Female</a>
+    <a href="./about.html">About</a>
+    <a href="./contact.html" class="active">Contact</a>
+  </nav>
+  <div class="nav-right">
+    <a href="./cart.html" class="nav-cart">
+      <i class="ri-shopping-bag-3-line"></i>
+      <span class="cart-badge"></span>
+    </a>
+    <div class="menu-toggle" id="menuToggle"><i class="ri-menu-3-line"></i></div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./index.html">Home</a>
+  <a href="./male.html">Male Collection</a>
+  <a href="./female.html">Female Collection</a>
+  <a href="./about.html">About</a>
+  <a href="./contact.html">Contact</a>
+  <a href="./cart.html">Cart</a>
+</div>
+
+<!-- HERO -->
+<section class="contact-hero">
+  <div class="contact-hero-bg"></div>
+  <div class="contact-hero-overlay"></div>
+  <div class="contact-hero-content">
+    <span class="overline">Get In Touch</span>
+    <h1>Contact MAINLUX</h1>
+    <p>We are always happy to hear from you.</p>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section">
+
+  <!-- INFO COLUMN -->
+  <div class="contact-info">
+    <h2>Contact Information</h2>
+
+    <div class="info-card">
+      <div class="info-icon"><i class="ri-phone-fill"></i></div>
+      <div>
+        <h3>Phone</h3>
+        <a href="tel:+2348101181400">08101181400</a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon"><i class="ri-mail-fill"></i></div>
+      <div>
+        <h3>Email</h3>
+        <a href="mailto:Mainluxury3@gmail.com">Mainluxury3@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon"><i class="ri-map-pin-fill"></i></div>
+      <div>
+        <h3>Address</h3>
+        <p>No. 1 Bajomo Street,<br>Ahmadiyah, Lagos</p>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon" style="background:rgba(225,48,108,0.1)"><i class="ri-instagram-fill" style="color:#E1306C"></i></div>
+      <div>
+        <h3>Instagram</h3>
+        <a href="https://instagram.com/Mainluxury3" target="_blank">@Mainluxury3</a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon" style="background:rgba(0,0,0,0.06)"><i class="ri-tiktok-fill" style="color:#000"></i></div>
+      <div>
+        <h3>TikTok</h3>
+        <a href="https://tiktok.com/@Mainluxury3" target="_blank">@Mainluxury3</a>
+      </div>
+    </div>
+
+    <a href="https://wa.me/2348101181400" target="_blank" class="whatsapp-cta">
+      <i class="ri-whatsapp-line"></i>
+      Chat on WhatsApp
+    </a>
+  </div>
+
+  <!-- FORM COLUMN -->
+  <div class="contact-form-wrap">
+    <h2>Send a Message</h2>
+    <form id="contactForm">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="cName" placeholder="e.g. Amaka Johnson" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="cEmail" placeholder="you@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="cMessage" rows="5" placeholder="How can we help?" required></textarea>
+      </div>
+      <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">
+        <i class="ri-send-plane-line"></i>
+        Send Message
+      </button>
+      <p class="form-success" id="formSuccess" style="display:none">
+        <i class="ri-check-circle-fill"></i> Message sent! We will get back to you shortly.
+      </p>
+      <p class="form-error" id="formError" style="display:none">
+        <i class="ri-error-warning-line"></i> Failed to send. Please try WhatsApp instead.
+      </p>
+    </form>
+  </div>
+
+</section>
+
+<!-- MAP -->
+<div class="map-section">
+  <iframe
+    src="https://maps.google.com/maps?q=Ahmadiyah+Lagos+Nigeria&t=&z=14&ie=UTF8&iwloc=&output=embed"
+    loading="lazy"
+    allowfullscreen
+    title="MAINLUX Location">
+  </iframe>
+</div>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-name">MAINLUX</span>
+      <p>Designed for everyday luxury.</p>
+      <p>Made in Nigeria.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/Mainluxury3" target="_blank"><i class="ri-instagram-line"></i></a>
+        <a href="https://tiktok.com/@Mainluxury3" target="_blank"><i class="ri-tiktok-line"></i></a>
+        <a href="https://wa.me/2348101181400" target="_blank"><i class="ri-whatsapp-line"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <a href="./male.html">Male Collection</a>
+      <a href="./female.html">Female Collection</a>
+      <a href="./cart.html">Cart</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="./about.html">About</a>
+      <a href="./contact.html">Contact</a>
+      <a href="./index.html">Home</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <span>08101181400</span>
+      <span>Mainluxury3@gmail.com</span>
+      <span>No. 1 Bajomo Street, Ahmadiyah, Lagos</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span class="footer-year"></span> MAINLUX. All Rights Reserved.</span>
+    <div class="footer-bottom-right">Made with <span>♦</span> in Nigeria</div>
+  </div>
+</footer>
+
+<a href="https://wa.me/2348101181400" class="floating-whatsapp" target="_blank">
+  <i class="ri-whatsapp-line"></i>
+</a>
+
+<script type="module" src="./js/shared.js"></script>
+<script type="module" src="./js/contact.js"></script>
+</body>
+</html>

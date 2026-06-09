@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";import"./shared-BRjlQf2g.js";const e=new URLSearchParams(window.location.search).get("order");document.getElementById("orderId").textContent=e?e.slice(0,16)+"...":"N/A";

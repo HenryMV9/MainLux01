@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | MAINLUX Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+<div class="admin-layout">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <span class="sidebar-logo">MAINLUX</span>
+      <span class="sidebar-tag">Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-group-title">Overview</span>
+      <a href="./dashboard.html" class="sidebar-link active"><i class="ri-dashboard-2-line"></i> Dashboard</a>
+
+      <span class="nav-group-title">Catalogue</span>
+      <a href="./products.html" class="sidebar-link"><i class="ri-price-tag-3-line"></i> Products</a>
+      <a href="./product-form.html" class="sidebar-link"><i class="ri-add-circle-line"></i> Add Product</a>
+
+      <span class="nav-group-title">Commerce</span>
+      <a href="./orders.html" class="sidebar-link"><i class="ri-shopping-bag-3-line"></i> Orders</a>
+
+      <span class="nav-group-title">Store</span>
+      <a href="./inventory.html" class="sidebar-link"><i class="ri-stack-line"></i> Inventory</a>
+      <a href="./settings.html" class="sidebar-link"><i class="ri-settings-3-line"></i> Settings</a>
+      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-2-line"></i> View Store</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar"><i class="ri-user-line"></i></div>
+        <div class="user-info">
+          <span class="user-name" id="adminEmail">Admin</span>
+          <span class="user-role">Owner</span>
+        </div>
+      </div>
+      <button class="signout-btn" id="signOutBtn"><i class="ri-logout-box-line"></i> Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle"><i class="ri-menu-2-line"></i></button>
+        <span class="topbar-title">Dashboard</span>
+      </div>
+      <div class="topbar-right">
+        <span class="admin-pill">Admin</span>
+        <a href="./product-form.html" class="btn btn-gold btn-sm"><i class="ri-add-line"></i> Add Product</a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="ri-shopping-bag-3-line"></i></div>
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-value" id="statOrders">—</div>
+          <div class="stat-sub">All time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="ri-time-line"></i></div>
+          <div class="stat-label">Pending</div>
+          <div class="stat-value" id="statPending">—</div>
+          <div class="stat-sub">Awaiting processing</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="ri-money-naira-circle-line"></i></div>
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-value" id="statRevenue">—</div>
+          <div class="stat-sub">Excl. cancelled</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="ri-price-tag-3-line"></i></div>
+          <div class="stat-label">Products</div>
+          <div class="stat-value" id="statProducts">—</div>
+          <div class="stat-sub">Active in store</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start" id="dashGrid">
+
+        <div class="panel" id="recentOrdersPanel">
+          <div class="panel-header">
+            <h3>Recent Orders</h3>
+            <a href="./orders.html" class="btn btn-ghost btn-sm">View All <i class="ri-arrow-right-line"></i></a>
+          </div>
+          <div class="table-scroll">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Phone</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="recentOrdersBody">
+                <tr><td colspan="6" style="text-align:center;padding:40px;color:#aaa">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel" id="lowStockWrap" style="display:none">
+            <div class="panel-header">
+              <h3><i class="ri-alert-line" style="color:#E65100;margin-right:6px"></i>Low Stock</h3>
+              <a href="./inventory.html" class="btn btn-ghost btn-sm">Manage</a>
+            </div>
+            <div class="panel-body" style="padding-top:8px">
+              <div id="lowStockList"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Quick Actions</h3>
+            </div>
+            <div class="panel-body" style="display:flex;flex-direction:column;gap:10px">
+              <a href="./product-form.html" class="btn btn-gold" style="justify-content:center"><i class="ri-add-line"></i> Add New Product</a>
+              <a href="./orders.html" class="btn btn-ghost" style="justify-content:center"><i class="ri-shopping-bag-3-line"></i> View Orders</a>
+              <a href="./inventory.html" class="btn btn-ghost" style="justify-content:center"><i class="ri-stack-line"></i> Manage Inventory</a>
+              <a href="/" target="_blank" class="btn btn-ghost" style="justify-content:center"><i class="ri-store-2-line"></i> Open Store</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script type="module" src="./js/dashboard.js"></script>
+</body>
+</html>

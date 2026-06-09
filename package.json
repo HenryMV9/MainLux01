@@ -1,24 +1,28 @@
 {
   "name": "mainlux01",
-  "version": "1.0.0",
-  "description": "An E-commerce Store For Foot Wears",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "MAINLUX - Premium Luxury Footwear Brand. Designed for everyday luxury. Made in Nigeria.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
+  "keywords": ["luxury", "footwear", "nigeria", "ecommerce"],
+  "author": "MAINLUX",
+  "license": "ISC",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HenryMV9/MainLux01.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/HenryMV9/MainLux01/issues"
   },
   "homepage": "https://github.com/HenryMV9/MainLux01#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "@supabase/supabase-js": "^2.106.2"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
   }
 }

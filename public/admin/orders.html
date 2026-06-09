@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders | MAINLUX Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+<div class="admin-layout">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <span class="sidebar-logo">MAINLUX</span>
+      <span class="sidebar-tag">Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-group-title">Overview</span>
+      <a href="./dashboard.html" class="sidebar-link"><i class="ri-dashboard-2-line"></i> Dashboard</a>
+
+      <span class="nav-group-title">Catalogue</span>
+      <a href="./products.html" class="sidebar-link"><i class="ri-price-tag-3-line"></i> Products</a>
+      <a href="./product-form.html" class="sidebar-link"><i class="ri-add-circle-line"></i> Add Product</a>
+
+      <span class="nav-group-title">Commerce</span>
+      <a href="./orders.html" class="sidebar-link active"><i class="ri-shopping-bag-3-line"></i> Orders</a>
+
+      <span class="nav-group-title">Store</span>
+      <a href="./inventory.html" class="sidebar-link"><i class="ri-stack-line"></i> Inventory</a>
+      <a href="./settings.html" class="sidebar-link"><i class="ri-settings-3-line"></i> Settings</a>
+      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-2-line"></i> View Store</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar"><i class="ri-user-line"></i></div>
+        <div class="user-info">
+          <span class="user-name" id="adminEmail">Admin</span>
+          <span class="user-role">Owner</span>
+        </div>
+      </div>
+      <button class="signout-btn" id="signOutBtn"><i class="ri-logout-box-line"></i> Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle"><i class="ri-menu-2-line"></i></button>
+        <span class="topbar-title">Orders</span>
+      </div>
+      <div class="topbar-right">
+        <span class="admin-pill" id="orderCountBadge">Admin</span>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <i class="ri-search-line"></i>
+          <input type="text" id="searchInput" placeholder="Search by name or phone...">
+        </div>
+        <select id="statusFilter">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div class="panel">
+        <div class="table-scroll">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Total</th>
+                <th>Items</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody">
+              <tr><td colspan="9" style="text-align:center;padding:40px;color:#aaa">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="orderModal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Order Details</h2>
+      <button class="modal-close" id="modalClose"><i class="ri-close-line"></i></button>
+    </div>
+    <div class="modal-body" id="modalContent"></div>
+  </div>
+</div>
+
+<script type="module" src="./js/orders.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings | MAINLUX Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+<div class="admin-layout">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <span class="sidebar-logo">MAINLUX</span>
+      <span class="sidebar-tag">Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-group-title">Overview</span>
+      <a href="./dashboard.html" class="sidebar-link"><i class="ri-dashboard-2-line"></i> Dashboard</a>
+
+      <span class="nav-group-title">Catalogue</span>
+      <a href="./products.html" class="sidebar-link"><i class="ri-price-tag-3-line"></i> Products</a>
+      <a href="./product-form.html" class="sidebar-link"><i class="ri-add-circle-line"></i> Add Product</a>
+
+      <span class="nav-group-title">Commerce</span>
+      <a href="./orders.html" class="sidebar-link"><i class="ri-shopping-bag-3-line"></i> Orders</a>
+
+      <span class="nav-group-title">Store</span>
+      <a href="./inventory.html" class="sidebar-link"><i class="ri-stack-line"></i> Inventory</a>
+      <a href="./settings.html" class="sidebar-link active"><i class="ri-settings-3-line"></i> Settings</a>
+      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-2-line"></i> View Store</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar"><i class="ri-user-line"></i></div>
+        <div class="user-info">
+          <span class="user-name" id="adminEmail">Admin</span>
+          <span class="user-role">Owner</span>
+        </div>
+      </div>
+      <button class="signout-btn" id="signOutBtn"><i class="ri-logout-box-line"></i> Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle"><i class="ri-menu-2-line"></i></button>
+        <span class="topbar-title">Settings</span>
+      </div>
+      <div class="topbar-right">
+        <span class="admin-pill">Admin</span>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <div class="settings-grid">
+
+        <div class="settings-panel">
+          <div class="settings-panel-header">
+            <i class="ri-contacts-line"></i>
+            <h3>Contact & Social</h3>
+          </div>
+          <div class="settings-panel-body">
+            <div class="settings-field">
+              <label><i class="ri-whatsapp-line"></i> WhatsApp Number</label>
+              <input type="text" id="settingWhatsapp" placeholder="e.g. 2348101181400">
+            </div>
+            <div class="settings-field">
+              <label><i class="ri-instagram-line"></i> Instagram Handle</label>
+              <input type="text" id="settingInstagram" placeholder="e.g. Mainluxury3">
+            </div>
+            <div class="settings-field">
+              <label><i class="ri-tiktok-line"></i> TikTok Handle</label>
+              <input type="text" id="settingTiktok" placeholder="e.g. Mainluxury3">
+            </div>
+            <div class="settings-save-row">
+              <button class="btn btn-gold" id="saveSocialBtn"><i class="ri-save-line"></i> Save</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-panel">
+          <div class="settings-panel-header">
+            <i class="ri-store-2-line"></i>
+            <h3>Store Information</h3>
+          </div>
+          <div class="settings-panel-body">
+            <div class="settings-field">
+              <label><i class="ri-phone-line"></i> Store Phone</label>
+              <input type="text" id="settingPhone" placeholder="e.g. 08101181400">
+            </div>
+            <div class="settings-field">
+              <label><i class="ri-mail-line"></i> Store Email</label>
+              <input type="email" id="settingEmail" placeholder="e.g. Mainluxury3@gmail.com">
+            </div>
+            <div class="settings-field">
+              <label><i class="ri-map-pin-line"></i> Store Address</label>
+              <input type="text" id="settingAddress" placeholder="e.g. No. 1 Bajomo Street, Lagos">
+            </div>
+            <div class="settings-save-row">
+              <button class="btn btn-gold" id="saveStoreBtn"><i class="ri-save-line"></i> Save</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-panel" style="grid-column:1/-1">
+          <div class="settings-panel-header">
+            <i class="ri-shield-user-line"></i>
+            <h3>Admin Account</h3>
+          </div>
+          <div class="settings-panel-body">
+            <div class="alert alert-gold" style="margin-bottom:18px">
+              <i class="ri-information-line"></i>
+              To change your email or password, use the Supabase Authentication dashboard or contact your developer.
+            </div>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div class="user-avatar" style="width:44px;height:44px;flex-shrink:0"><i class="ri-user-line" style="font-size:1.1rem"></i></div>
+              <div>
+                <p style="font-size:0.85rem;font-weight:500" id="settingAdminEmail">—</p>
+                <p style="font-size:0.72rem;color:#999;margin-top:2px">Logged in as Admin</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script type="module" src="./js/settings.js"></script>
+</body>
+</html>

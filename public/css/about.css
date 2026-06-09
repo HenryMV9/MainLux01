@@ -1,0 +1,198 @@
+/* ============================================================
+   MAINLUX ABOUT PAGE STYLES
+   ============================================================ */
+
+/* ── HERO ──────────────────────────────────────────────── */
+.about-hero {
+  position: relative;
+  height: 70vh;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.about-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1978&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  transition: transform 8s ease;
+}
+
+.about-hero:hover .about-hero-bg { transform: scale(1.03); }
+
+.about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11,11,11,0.8) 0%, rgba(11,11,11,0.3) 100%);
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 6%;
+  max-width: 680px;
+}
+
+.about-hero-content .overline {
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #C9A35B;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 18px;
+}
+
+.about-hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: #FFFFFF;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.about-hero-content h1 em { font-style: italic; color: #C9A35B; }
+
+.about-hero-content p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+}
+
+/* ── STORY ─────────────────────────────────────────────── */
+.about-story {
+  padding: 90px 6%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+  background: #FFFFFF;
+}
+
+.story-text .overline {
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #C9A35B;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.story-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #0B0B0B;
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+
+.story-text p {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.story-image img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+}
+
+/* ── VALUES ────────────────────────────────────────────── */
+.about-values {
+  padding: 90px 6%;
+  background: #F5F1EA;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 10px;
+}
+
+.value-card {
+  background: #FFFFFF;
+  padding: 40px 30px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+}
+
+.value-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(201,163,91,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 1.5rem;
+  color: #C9A35B;
+}
+
+.value-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0B0B0B;
+  margin-bottom: 12px;
+}
+
+.value-card p { font-size: 0.82rem; color: #666; line-height: 1.8; }
+
+/* ── NUMBERS ───────────────────────────────────────────── */
+.about-numbers {
+  background: #0B0B0B;
+  padding: 70px 6%;
+}
+
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  text-align: center;
+}
+
+.number-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #C9A35B;
+  display: block;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.number-label {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-story { grid-template-columns: 1fr; gap: 40px; }
+  .values-grid { grid-template-columns: 1fr; }
+  .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .numbers-grid { grid-template-columns: 1fr 1fr; }
+  .number-value { font-size: 2rem; }
+}

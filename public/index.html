@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAINLUX — Designed for Everyday Luxury. Made in Nigeria.</title>
+<meta name="description" content="MAINLUX sells premium luxury slides for men and women. Designed for everyday luxury. Made in Nigeria.">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/shared.css">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <a href="./index.html" class="logo">MAINLUX</a>
+  <nav class="nav-links">
+    <a href="./index.html" class="active">Home</a>
+    <a href="./male.html">Male</a>
+    <a href="./female.html">Female</a>
+    <a href="./about.html">About</a>
+    <a href="./contact.html">Contact</a>
+  </nav>
+  <div class="nav-right">
+    <a href="./cart.html" class="nav-cart">
+      <i class="ri-shopping-bag-3-line"></i>
+      <span class="cart-badge"></span>
+    </a>
+    <div class="menu-toggle" id="menuToggle"><i class="ri-menu-3-line"></i></div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./index.html">Home</a>
+  <a href="./male.html">Male Collection</a>
+  <a href="./female.html">Female Collection</a>
+  <a href="./about.html">About</a>
+  <a href="./contact.html">Contact</a>
+  <a href="./cart.html">Cart</a>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1974&auto=format&fit=crop')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1974&auto=format&fit=crop')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-overline">Luxury Footwear — Made in Nigeria</span>
+    <h1>Designed For<br><em>Everyday Luxury.</em></h1>
+    <p>Premium slides crafted for the modern Nigerian lifestyle.</p>
+    <div class="hero-cta">
+      <a href="./male.html" class="btn-primary">Shop Male Collection</a>
+      <a href="./female.html" class="btn-outline">Shop Female Collection</a>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <button class="dot active"></button>
+    <button class="dot"></button>
+    <button class="dot"></button>
+  </div>
+</section>
+
+<!-- ── MARQUEE STRIP ──────────────────────────────────── -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Premium Quality</span><span>♦</span>
+    <span>Made In Nigeria</span><span>♦</span>
+    <span>Everyday Luxury</span><span>♦</span>
+    <span>Premium Quality</span><span>♦</span>
+    <span>Made In Nigeria</span><span>♦</span>
+    <span>Everyday Luxury</span><span>♦</span>
+  </div>
+</div>
+
+<!-- ── COLLECTIONS ────────────────────────────────────── -->
+<section class="collections-section">
+  <a href="./male.html" class="collection-card fade-in">
+    <div class="collection-img" style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop')"></div>
+    <div class="collection-overlay">
+      <div class="collection-content">
+        <span class="overline">Explore</span>
+        <h2>Male Collection</h2>
+        <span class="collection-cta">Shop Now <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="./female.html" class="collection-card fade-in fade-in-delay-1">
+    <div class="collection-img" style="background-image:url('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1974&auto=format&fit=crop')"></div>
+    <div class="collection-overlay">
+      <div class="collection-content">
+        <span class="overline">Explore</span>
+        <h2>Female Collection</h2>
+        <span class="collection-cta">Shop Now <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </div>
+  </a>
+</section>
+
+<!-- ── NEW ARRIVALS ───────────────────────────────────── -->
+<section class="arrivals-section">
+  <div class="section-heading fade-in">
+    <span class="overline">Just Landed</span>
+    <h2>New Arrivals</h2>
+  </div>
+  <div class="products-grid" id="newArrivals">
+    <!-- Skeleton loading -->
+    <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-info"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-info"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-info"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line btn"></div></div></div>
+  </div>
+  <div style="text-align:center;margin-top:50px">
+    <a href="./male.html" class="btn-primary" style="margin-right:12px">Shop Male</a>
+    <a href="./female.html" class="btn-primary">Shop Female</a>
+  </div>
+</section>
+
+<!-- ── WHY MAINLUX ────────────────────────────────────── -->
+<section class="why-section">
+  <div class="section-heading fade-in">
+    <span class="overline">Why Choose Us</span>
+    <h2>The MAINLUX Difference</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card fade-in">
+      <div class="why-icon"><i class="ri-award-fill"></i></div>
+      <h3>Premium Materials</h3>
+      <p>Every slide is crafted from the finest materials, selected for comfort, durability, and elegance.</p>
+    </div>
+    <div class="why-card fade-in fade-in-delay-1">
+      <div class="why-icon"><i class="ri-map-pin-fill"></i></div>
+      <h3>Made In Nigeria</h3>
+      <p>Proudly designed and crafted locally. Supporting Nigerian craftsmanship at the highest level.</p>
+    </div>
+    <div class="why-card fade-in fade-in-delay-2">
+      <div class="why-icon"><i class="ri-heart-3-fill"></i></div>
+      <h3>Everyday Luxury</h3>
+      <p>Luxury that doesn't stay in the closet. Slides designed to elevate your everyday style.</p>
+    </div>
+    <div class="why-card fade-in fade-in-delay-3">
+      <div class="why-icon"><i class="ri-shield-check-fill"></i></div>
+      <h3>Quality Guaranteed</h3>
+      <p>Every pair leaves our hands only when it meets the MAINLUX standard of perfection.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── MADE IN NIGERIA ────────────────────────────────── -->
+<section class="nigeria-section fade-in">
+  <div class="nigeria-content">
+    <span class="overline">Our Heritage</span>
+    <h2>Proudly Made In Nigeria</h2>
+    <p>MAINLUX was born from a vision to redefine what luxury footwear means in Nigeria. Every design, every stitch, every sole reflects the confidence and pride of the modern Nigerian.</p>
+    <a href="./about.html" class="btn-outline">Our Story</a>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ───────────────────────────────────── -->
+<section class="social-proof-section">
+  <div class="section-heading fade-in">
+    <span class="overline">Community</span>
+    <h2>Follow the Movement</h2>
+  </div>
+  <div class="social-handles fade-in">
+    <a href="https://instagram.com/Mainluxury3" target="_blank" class="handle-card">
+      <i class="ri-instagram-line"></i>
+      <span>@Mainluxury3</span>
+    </a>
+    <a href="https://tiktok.com/@Mainluxury3" target="_blank" class="handle-card">
+      <i class="ri-tiktok-line"></i>
+      <span>@Mainluxury3</span>
+    </a>
+    <a href="https://wa.me/2348101181400" target="_blank" class="handle-card">
+      <i class="ri-whatsapp-line"></i>
+      <span>+234 810 118 1400</span>
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="brand-name">MAINLUX</span>
+      <p>Designed for everyday luxury.</p>
+      <p>Made in Nigeria.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/Mainluxury3" target="_blank"><i class="ri-instagram-line"></i></a>
+        <a href="https://tiktok.com/@Mainluxury3" target="_blank"><i class="ri-tiktok-line"></i></a>
+        <a href="https://wa.me/2348101181400" target="_blank"><i class="ri-whatsapp-line"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <a href="./male.html">Male Collection</a>
+      <a href="./female.html">Female Collection</a>
+      <a href="./cart.html">Cart</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="./about.html">About</a>
+      <a href="./contact.html">Contact</a>
+      <a href="./index.html">Home</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <span>08101181400</span>
+      <span>Mainluxury3@gmail.com</span>
+      <span>No. 1 Bajomo Street, Ahmadiyah, Lagos</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span class="footer-year"></span> MAINLUX. All Rights Reserved.</span>
+    <div class="footer-bottom-right">Made with <span>♦</span> in Nigeria</div>
+  </div>
+</footer>
+
+<a href="https://wa.me/2348101181400" class="floating-whatsapp" target="_blank">
+  <i class="ri-whatsapp-line"></i>
+</a>
+
+<script type="module" src="./js/shared.js"></script>
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>

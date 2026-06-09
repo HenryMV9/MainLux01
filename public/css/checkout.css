@@ -1,0 +1,240 @@
+/* ============================================================
+   MAINLUX CHECKOUT PAGE STYLES
+   ============================================================ */
+
+.checkout-page {
+  min-height: 90vh;
+  padding: 100px 6% 80px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 50px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── FORM ────────────────────────────────────────────────── */
+
+.checkout-step {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.step-number {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  font-weight: 700;
+  color: #C9A35B;
+}
+
+.checkout-step h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0B0B0B;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #0B0B0B;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  font-family: 'Inter', sans-serif;
+  color: #0B0B0B;
+  outline: none;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #C9A35B;
+}
+
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #C62828;
+}
+
+.field-error {
+  display: block;
+  font-size: 0.72rem;
+  color: #C62828;
+  margin-top: 5px;
+  min-height: 16px;
+}
+
+.pay-btn {
+  width: 100%;
+  background: #0B0B0B;
+  color: #FFFFFF;
+  border: none;
+  padding: 18px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  margin-top: 8px;
+}
+
+.pay-btn:hover:not(:disabled) { background: #C9A35B; }
+
+.pay-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.pay-btn.loading {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.checkout-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+.checkout-note i { color: #25D366; font-size: 0.9rem; }
+
+/* ── ORDER SUMMARY ────────────────────────────────────────── */
+
+.order-summary-wrap {
+  background: #FFFFFF;
+  padding: 32px;
+  border: 1px solid rgba(0,0,0,0.08);
+  position: sticky;
+  top: 100px;
+}
+
+.order-summary-wrap h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0B0B0B;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.checkout-item {
+  display: flex;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.checkout-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.checkout-item-info h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0B0B0B;
+  margin-bottom: 4px;
+}
+
+.checkout-item-info p {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.checkout-item-price {
+  margin-left: auto;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #C9A35B;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.order-totals {
+  margin-top: 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.summary-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.08);
+  margin: 16px 0;
+}
+
+.total-row {
+  font-weight: 700;
+  color: #0B0B0B;
+  font-size: 0.92rem;
+}
+
+.total-row span:last-child {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #C9A35B;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .checkout-page {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .order-summary-wrap {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 540px) {
+  .checkout-page { padding: 90px 5% 60px; }
+  .form-row { grid-template-columns: 1fr; }
+}
