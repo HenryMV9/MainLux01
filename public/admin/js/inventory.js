@@ -6,6 +6,10 @@ initMobileMenu();
 
 let allProducts = [];
 
+function esc(str) {
+  return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 const { data, error } = await adminDb.from('products').select('id, name, category, stock, images, is_active').order('stock', { ascending: true });
 
 if (error) {
@@ -35,9 +39,9 @@ function renderTable(products) {
   }
   tbody.innerHTML = products.map(p => `
     <tr>
-      <td><img class="product-thumb" src="${(p.images && p.images[0]) || ''}" alt="${p.name}" onerror="this.style.opacity=0"></td>
-      <td style="font-weight:500">${p.name}</td>
-      <td><span class="badge" style="background:rgba(201,163,91,0.1);color:#C9A35B">${p.category}</span></td>
+      <td><img class="product-thumb" src="${(p.images && p.images[0]) || ''}" alt="${esc(p.name)}" onerror="this.style.opacity=0"></td>
+      <td style="font-weight:500">${esc(p.name)}</td>
+      <td><span class="badge" style="background:rgba(201,163,91,0.1);color:#C9A35B">${esc(p.category)}</span></td>
       <td><span class="stock-badge ${stockClass(p.stock)}">${stockLabel(p.stock)}</span></td>
       <td>
         <input type="number" class="stock-edit-input" data-id="${p.id}" value="${p.stock}" min="0" placeholder="Qty">
