@@ -7,7 +7,10 @@ export const adminDb = createClient(supabaseUrl, supabaseAnonKey);
 
 export async function initAdmin() {
   const { data: { session } } = await adminDb.auth.getSession();
-  if (!session) { window.location.href = '/admin/login.html'; return; }
+  if (!session) {
+    window.location.href = '/admin/login.html';
+    throw new Error('unauthenticated');
+  }
 
   const emailEl = document.getElementById('adminEmail');
   if (emailEl) emailEl.textContent = session.user.email;

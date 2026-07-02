@@ -10,6 +10,10 @@ const { data, error } = await adminDb.from('products').select('*').order('create
 if (error) { showToast('Failed to load products', 'error'); }
 else { allProducts = data || []; applyFilters(); }
 
+function esc(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function stockBadge(stock) {
   if (stock <= 0) return `<span class="badge badge-out">Out of Stock</span>`;
   if (stock <= 3) return `<span class="badge badge-low">Low (${stock})</span>`;
@@ -24,12 +28,12 @@ function renderTable(products) {
   }
   tbody.innerHTML = products.map(p => `
     <tr>
-      <td><img class="product-thumb" src="${(p.images && p.images[0]) || ''}" alt="${p.name}" onerror="this.style.opacity=0"></td>
+      <td><img class="product-thumb" src="${(p.images && p.images[0]) || ''}" alt="${esc(p.name)}" onerror="this.style.opacity=0"></td>
       <td>
-        <strong style="display:block">${p.name}</strong>
+        <strong style="display:block">${esc(p.name)}</strong>
         ${p.is_new_arrival ? '<span class="badge" style="background:rgba(21,101,192,0.1);color:#1565C0;margin-top:4px">New Arrival</span>' : ''}
       </td>
-      <td><span class="badge" style="background:rgba(201,163,91,0.1);color:#C9A35B">${p.category}</span></td>
+      <td><span class="badge" style="background:rgba(201,163,91,0.1);color:#C9A35B">${esc(p.category)}</span></td>
       <td style="font-weight:700">\u20a6${p.price.toLocaleString()}</td>
       <td>${stockBadge(p.stock)}</td>
       <td>${p.is_featured ? '<span class="badge badge-active">Yes</span>' : '<span class="badge badge-inactive">No</span>'}</td>
@@ -37,7 +41,7 @@ function renderTable(products) {
       <td>
         <div style="display:flex;gap:6px">
           <a href="./product-form.html?id=${p.id}" class="btn btn-ghost btn-sm"><i class="ri-edit-line"></i></a>
-          <button class="btn btn-danger btn-sm delete-btn" data-id="${p.id}" data-name="${p.name}"><i class="ri-delete-bin-line"></i></button>
+          <button class="btn btn-danger btn-sm delete-btn" data-id="${p.id}" data-name="${esc(p.name)}"><i class="ri-delete-bin-line"></i></button>
         </div>
       </td>
     </tr>`).join('');

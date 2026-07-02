@@ -1,12 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
+import { adminDb } from './admin-auth.js';
+import { checkRateLimit, recordAttempt, getRetryAfter } from '../../js/rate-limit.js';
 
-const db = createClient(
-  import.meta.env.VITE_SUPABASE_URL || 'https://mpmvsrestxuuebvtnsqi.supabase.co',
-  import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1wbXZzcmVzdHh1dWVidnRuc3FpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjMyNzYsImV4cCI6MjA5NTQ5OTI3Nn0.zD2b5km07O-6N-hetHuQjHh-fbzJ4Vq4XYSBVnfQyYI'
-);
-
-const { data: { session } } = await db.auth.getSession();
+// Redirect if already logged in
+const { data: { session } } = await adminDb.auth.getSession();
 if (session) window.location.href = '/admin/dashboard.html';
+
+// 5 attempts per 15 minutes
+const LIMIT = 5;
+const WINDOW = 15 * 60 * 1000;
+const RL_KEY = 'admin_login';
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -15,16 +17,23 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const email = document.getElementById('adminEmail').value.trim();
   const password = document.getElementById('adminPassword').value;
 
+  if (!checkRateLimit(RL_KEY, LIMIT, WINDOW)) {
+    const secs = Math.ceil(getRetryAfter(RL_KEY, LIMIT, WINDOW) / 1000);
+    errorEl.textContent = `Too many attempts. Try again in ${secs}s.`;
+    return;
+  }
+
   btn.disabled = true;
   btn.innerHTML = '<i class="ri-loader-4-line"></i> Signing in...';
   errorEl.textContent = '';
 
-  const { error } = await db.auth.signInWithPassword({ email, password });
+  recordAttempt(RL_KEY);
+  const { error } = await adminDb.auth.signInWithPassword({ email, password });
 
   if (error) {
     errorEl.textContent = 'Invalid email or password. Please try again.';
     btn.disabled = false;
-    btn.innerHTML = '<i class="ri-shield-check-line"></i> Sign In';
+    btn.innerHTML = '<i class="ri-shield-check-line"></i> Sign In to Admin';
     return;
   }
 

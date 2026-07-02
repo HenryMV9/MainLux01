@@ -1,3 +1,5 @@
+import { checkRateLimit, recordAttempt, getRetryAfter } from './rate-limit.js';
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://mpmvsrestxuuebvtnsqi.supabase.co';
 const CONTACT_ENDPOINT = `${SUPABASE_URL}/functions/v1/submit-contact`;
 const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1wbXZzcmVzdHh1dWVidnRuc3FpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjMyNzYsImV4cCI6MjA5NTQ5OTI3Nn0.zD2b5km07O-6N-hetHuQjHh-fbzJ4Vq4XYSBVnfQyYI';
@@ -18,6 +20,16 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   btn.disabled = true;
   btn.innerHTML = '<i class="ri-loader-4-line"></i> Sending...';
 
+  // Rate limit: max 3 messages per 10 minutes
+  if (!checkRateLimit('contact', 3, 10 * 60 * 1000)) {
+    const secs = Math.ceil(getRetryAfter('contact', 3, 10 * 60 * 1000) / 1000);
+    errorEl.style.display = 'flex';
+    errorEl.textContent = `Please wait ${secs}s before sending another message.`;
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ri-send-plane-line"></i> Send Message';
+    return;
+  }
+
   try {
     const res = await fetch(CONTACT_ENDPOINT, {
       method: 'POST',
@@ -25,6 +37,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
       body: JSON.stringify({ name, email, message })
     });
     if (!res.ok) throw new Error();
+    recordAttempt('contact');
     successEl.style.display = 'flex';
     document.getElementById('contactForm').reset();
 
