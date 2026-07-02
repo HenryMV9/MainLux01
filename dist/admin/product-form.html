@@ -3,129 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product Form | MAINLUX Admin</title>
+<title>Add Product | MAINLUX Admin</title>
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/admin-product-form-CiSjdnXm.js"></script>
+  <script type="module" crossorigin src="/assets/admin-product-form-DhN_vz1l.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/index-dZcf2LBU.js">
-  <link rel="modulepreload" crossorigin href="/assets/admin-auth-BiH_RBYv.js">
-  <link rel="stylesheet" crossorigin href="/assets/admin-Cwj52KcZ.css">
+  <link rel="modulepreload" crossorigin href="/assets/admin-auth--WGq86QY.js">
+  <link rel="modulepreload" crossorigin href="/assets/admin-ui-CcsmRy9a.js">
+  <link rel="stylesheet" crossorigin href="/assets/admin-auth-Dj7pP5-F.css">
 </head>
 <body>
 <div class="admin-layout">
-  <aside class="sidebar">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="adminSidebar">
     <div class="sidebar-brand">
-      <span class="logo">MAINLUX</span>
-      <span class="admin-tag">Admin Panel</span>
+      <span class="sidebar-logo">MAINLUX</span>
+      <span class="sidebar-tag">Admin Panel</span>
     </div>
     <nav class="sidebar-nav">
-      <span class="nav-section-title">Overview</span>
-      <a href="./dashboard.html" class="sidebar-link"><i class="ri-dashboard-line"></i> Dashboard</a>
-      <span class="nav-section-title">Catalogue</span>
-      <a href="./products.html" class="sidebar-link"><i class="ri-shirt-line"></i> Products</a>
+      <span class="nav-group-title">Overview</span>
+      <a href="./dashboard.html" class="sidebar-link"><i class="ri-dashboard-2-line"></i> Dashboard</a>
+
+      <span class="nav-group-title">Catalogue</span>
+      <a href="./products.html" class="sidebar-link"><i class="ri-price-tag-3-line"></i> Products</a>
       <a href="./product-form.html" class="sidebar-link active"><i class="ri-add-circle-line"></i> Add Product</a>
-      <span class="nav-section-title">Commerce</span>
+
+      <span class="nav-group-title">Commerce</span>
       <a href="./orders.html" class="sidebar-link"><i class="ri-shopping-bag-3-line"></i> Orders</a>
-      <span class="nav-section-title">Store</span>
-      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-line"></i> View Store</a>
+
+      <span class="nav-group-title">Store</span>
+      <a href="./inventory.html" class="sidebar-link"><i class="ri-stack-line"></i> Inventory</a>
+      <a href="./settings.html" class="sidebar-link"><i class="ri-settings-3-line"></i> Settings</a>
+      <a href="/" target="_blank" class="sidebar-link"><i class="ri-store-2-line"></i> View Store</a>
     </nav>
-    <div class="sidebar-bottom">
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar"><i class="ri-user-line"></i></div>
+        <div class="user-info">
+          <span class="user-name" id="adminEmail">Admin</span>
+          <span class="user-role">Owner</span>
+        </div>
+      </div>
       <button class="signout-btn" id="signOutBtn"><i class="ri-logout-box-line"></i> Sign Out</button>
     </div>
   </aside>
 
   <main class="admin-main">
     <div class="admin-topbar">
-      <h1 id="formTitle">Add Product</h1>
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle"><i class="ri-menu-2-line"></i></button>
+        <span class="topbar-title" id="formTitle">Add Product</span>
+      </div>
       <div class="topbar-right">
-        <span id="adminEmail"></span>
+        <span class="admin-pill">Admin</span>
         <a href="./products.html" class="btn btn-ghost btn-sm"><i class="ri-arrow-left-line"></i> Back</a>
       </div>
     </div>
+
     <div class="admin-content">
       <form class="admin-form" id="productForm">
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>Product Name *</label>
-            <input type="text" id="pName" placeholder="e.g. Mainlux Noir" required>
+        <div class="form-section">
+          <div class="form-section-title">Product Details</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Product Name <span style="color:#C62828">*</span></label>
+              <input type="text" id="pName" placeholder="e.g. Mainlux Noir" required>
+            </div>
+            <div class="form-group">
+              <label>Category <span style="color:#C62828">*</span></label>
+              <select id="pCategory" required>
+                <option value="">Select category</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
           </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price (NGN) <span style="color:#C62828">*</span></label>
+              <input type="number" id="pPrice" placeholder="e.g. 45000" min="1" required>
+            </div>
+            <div class="form-group">
+              <label>Total Stock <span class="label-hint">(auto-summed from sizes)</span></label>
+              <input type="number" id="pStock" placeholder="e.g. 20" min="0" required>
+            </div>
+          </div>
+
           <div class="form-group">
-            <label>Category *</label>
-            <select id="pCategory" required>
-              <option value="">Select category</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+            <label>Description</label>
+            <textarea id="pDescription" rows="4" placeholder="Describe this product — materials, feel, occasion..."></textarea>
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>Price (NGN) *</label>
-            <input type="number" id="pPrice" placeholder="e.g. 45000" min="1" required>
-          </div>
-          <div class="form-group">
-            <label>Stock Quantity *</label>
-            <input type="number" id="pStock" placeholder="e.g. 20" min="0" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Description</label>
-          <textarea id="pDescription" rows="4" placeholder="Describe this product..."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Available Sizes</label>
-          <div class="sizes-check" id="sizesCheck">
+        <div class="form-section">
+          <div class="form-section-title">Size & Stock</div>
+          <p style="font-size:0.76rem;color:#999;margin-bottom:14px">Check each available size and set how many pairs are in stock per size.</p>
+          <div class="sizes-grid" id="sizesGrid">
             <!-- Rendered by JS -->
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Product Images</label>
+        <div class="form-section">
+          <div class="form-section-title">Product Images</div>
           <div class="image-upload-area" id="uploadArea">
-            <i class="ri-image-add-line"></i>
-            <p>Click to upload images or drag and drop</p>
-            <p style="font-size:0.7rem;margin-top:4px;color:#bbb">PNG, JPG up to 5MB each. First image is the primary.</p>
+            <i class="ri-image-add-line upload-icon"></i>
+            <p class="upload-hint"><strong>Click to upload</strong> or drag &amp; drop images here</p>
+            <p class="upload-hint"><small>PNG, JPG up to 5MB each. First image is the main display image.</small></p>
             <input type="file" id="imageInput" multiple accept="image/*" style="display:none">
           </div>
           <div class="upload-preview" id="uploadPreview"></div>
         </div>
 
-        <div class="form-group">
-          <label>Settings</label>
-          <div>
-            <div class="toggle-row">
-              <div>
-                <div class="toggle-label">Featured Product</div>
-                <div class="toggle-sub">Show in homepage New Arrivals section</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="pFeatured">
-                <span class="toggle-slider"></span>
-              </label>
+        <div class="form-section">
+          <div class="form-section-title">Settings</div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">Featured Product</span>
+              <span class="toggle-sub">Shows in the homepage New Arrivals section</span>
             </div>
-            <div class="toggle-row">
-              <div>
-                <div class="toggle-label">Active (Visible in Store)</div>
-                <div class="toggle-sub">Uncheck to hide from customers</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="pActive" checked>
-                <span class="toggle-slider"></span>
-              </label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="pFeatured">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">New Arrival</span>
+              <span class="toggle-sub">Tags this product as a new arrival</span>
             </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="pNewArrival">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">Active (Visible in Store)</span>
+              <span class="toggle-sub">Uncheck to hide from customers</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="pActive" checked>
+              <span class="toggle-slider"></span>
+            </label>
           </div>
         </div>
 
-        <div style="display:flex;gap:12px;margin-top:8px">
-          <button type="submit" class="btn btn-gold" id="submitBtn">
+        <div style="display:flex;gap:12px;padding-top:8px">
+          <button type="submit" class="btn btn-gold btn-lg" id="submitBtn">
             <i class="ri-save-line"></i> Save Product
           </button>
-          <a href="./products.html" class="btn btn-ghost">Cancel</a>
+          <a href="./products.html" class="btn btn-ghost btn-lg">Cancel</a>
         </div>
 
       </form>
